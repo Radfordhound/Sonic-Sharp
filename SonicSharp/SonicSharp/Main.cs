@@ -1,4 +1,17 @@
-﻿#region Using Statements
+﻿/*
+ * soniC#
+ *  A C#/MonoGame engine inspried by the Sonic the Hedgehog franchise!
+ *  
+ * This engine was created strictly for fun/educational use and should not be used
+ * commercially. It is under the Creative Commons Attribution-Noncommercial-ShareAlike-3.0 License
+ * (Found Here: http://creativecommons.org/licenses/by-nc-sa/3.0/) and as such legally dis-allows
+ * commercial use, amoungst other things. For more information please refer to the LICENSE.txt file
+ * provided with the project's official repository at the root as well as the Visual Studio solution.
+ * 
+ * Thanks for reading, and enjoy the engine! :)
+*/
+
+#region Using Statements
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
