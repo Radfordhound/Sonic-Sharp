@@ -23,3 +23,5 @@ C:\Users\Graha_000\Documents\GitHub\Sonic-Sharp\SonicSharp\SonicSharp\bin\Window
 C:\Users\Graha_000\Documents\GitHub\Sonic-Sharp\SonicSharp\SonicSharp\obj\x86\Debug\SonicSharp.csprojResolveAssemblyReference.cache
 C:\Users\Graha_000\Documents\GitHub\Sonic-Sharp\SonicSharp\SonicSharp\obj\x86\Debug\SonicSharp.exe
 C:\Users\Graha_000\Documents\GitHub\Sonic-Sharp\SonicSharp\SonicSharp\obj\x86\Debug\SonicSharp.pdb
+C:\Users\Graha_000\Documents\GitHub\Sonic-Sharp\SonicSharp\SonicSharp\bin\Windows\Debug\LICENSE.txt
+C:\Users\Graha_000\Documents\GitHub\Sonic-Sharp\SonicSharp\SonicSharp\bin\Windows\Debug\Assets\Sprites\running1.png

@@ -24,13 +24,39 @@ namespace SonicSharp
     /// </summary>
     public class Main : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        #region Variable Declarations
+        
+        #region Public static variables
+
+        //Graphics-drawing
+        public static GraphicsDeviceManager graphics;
+        public static SpriteBatch spriteBatch;
+        
+        //Screen Resolution/Size
+        public static int virtualscreenwidth = 960;
+        public static int virtualscreenheight = 540;
+        public static bool fullscreen = false;
+
+        #endregion
+
+        #region Other variables
+
+        Vector3 scale;
+        Texture2D running;
+
+        #endregion
+
+        #endregion
 
         public Main(): base()
         {
             graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
+            Content.RootDirectory = "Assets";
+            Window.Title = "soniC#";
+            Window.AllowUserResizing = true;
+
+            graphics.PreferredBackBufferWidth = virtualscreenwidth;
+            graphics.PreferredBackBufferHeight = virtualscreenheight;
         }
 
         /// <summary>
@@ -55,7 +81,7 @@ namespace SonicSharp
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            running = Content.Load<Texture2D>("Sprites\\running1");
         }
 
         /// <summary>
@@ -74,10 +100,39 @@ namespace SonicSharp
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))Exit();
 
-            // TODO: Add your update logic here
+            if (Keyboard.GetState().IsKeyDown(Keys.F11))
+            {
+                fullscreen = !fullscreen;
+
+                if (fullscreen)
+                {
+                    virtualscreenwidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                    virtualscreenheight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+                    Window.IsBorderless = true;
+                    Window.Position = new Point(0, 0);
+                }
+                else
+                {
+                    virtualscreenwidth = 960;
+                    virtualscreenheight = 450;
+                    Window.IsBorderless = false;
+                }
+
+                graphics.PreferredBackBufferWidth = virtualscreenwidth;
+                graphics.PreferredBackBufferHeight = virtualscreenheight;
+                graphics.ApplyChanges();
+            }
+            
+            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            {
+                Camera.campos.X++;
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            {
+                Camera.campos.X--;
+            }
 
             base.Update(gameTime);
         }
@@ -90,9 +145,26 @@ namespace SonicSharp
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            Matrix scaleMatrix = GetDrawingMatrix();
+
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, scaleMatrix);
+            spriteBatch.Draw(running,new Vector2(0,0),Color.White);
+            spriteBatch.End();
+
+            //Re-scale the window incase the user resized it.
+            var scaleX = (float)GraphicsDevice.Viewport.Width / (float)virtualscreenwidth;
+            var scaleY = (float)GraphicsDevice.Viewport.Height / (float)virtualscreenheight;
+            scale = new Vector3(scaleX * 2, scaleY * 2, 1.0f);
 
             base.Draw(gameTime);
+        }
+
+        /// <summary>
+        /// Gets the Matrix used for drawing to the screen.
+        /// </summary>
+        Matrix GetDrawingMatrix()
+        {
+            return Matrix.Multiply(Matrix.CreateScale(scale), Matrix.CreateTranslation(Camera.campos.X * -1, Camera.campos.Y * -1, 0));
         }
     }
 }
