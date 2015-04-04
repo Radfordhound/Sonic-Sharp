@@ -1,6 +1,6 @@
 ﻿/*
  * soniC#
- *  A C#/MonoGame engine inspried by the Sonic the Hedgehog franchise!
+ *  A C#/MonoGame engine inspried by the Sonic the Hedgehog franchise based off of the classics!
  *  
  * This engine was created strictly for fun/educational use and should not be used
  * commercially. It is under the Creative Commons Attribution-Noncommercial-ShareAlike-3.0 License
@@ -12,6 +12,8 @@
 */
 
 #region Using Statements
+using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -37,12 +39,14 @@ namespace SonicSharp
         public static int virtualscreenheight = 540;
         public static bool fullscreen = false;
 
+        public static List<Player> players = new List<Player>();
+
         #endregion
 
         #region Other variables
 
         Vector3 scale;
-        Texture2D running;
+        private KeyboardState oldState;
 
         #endregion
 
@@ -67,8 +71,7 @@ namespace SonicSharp
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            players.Add(new Sonic(1));
             base.Initialize();
         }
 
@@ -80,8 +83,11 @@ namespace SonicSharp
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            running = Content.Load<Texture2D>("Sprites\\running1");
+            
+            foreach (Player plr in players)
+            {
+                ((Sonic)plr).LoadContent(Content);
+            }
         }
 
         /// <summary>
@@ -102,7 +108,12 @@ namespace SonicSharp
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))Exit();
 
-            if (Keyboard.GetState().IsKeyDown(Keys.F11))
+            foreach (Player plr in players)
+            {
+                plr.Update(gameTime);
+            }
+
+            if (oldState.IsKeyUp(Keys.F11) && Keyboard.GetState().IsKeyDown(Keys.F11))
             {
                 fullscreen = !fullscreen;
 
@@ -123,17 +134,9 @@ namespace SonicSharp
                 graphics.PreferredBackBufferWidth = virtualscreenwidth;
                 graphics.PreferredBackBufferHeight = virtualscreenheight;
                 graphics.ApplyChanges();
-            }
-            
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
-            {
-                Camera.campos.X++;
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Left))
-            {
-                Camera.campos.X--;
-            }
+            }        
 
+            oldState = Keyboard.GetState();
             base.Update(gameTime);
         }
 
@@ -148,7 +151,12 @@ namespace SonicSharp
             Matrix scaleMatrix = GetDrawingMatrix();
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, scaleMatrix);
-            spriteBatch.Draw(running,new Vector2(0,0),Color.White);
+            
+            foreach (Player plr in players)
+            {
+                plr.Draw();
+            }
+
             spriteBatch.End();
 
             //Re-scale the window incase the user resized it.
