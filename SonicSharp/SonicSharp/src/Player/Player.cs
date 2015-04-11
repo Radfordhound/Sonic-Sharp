@@ -15,12 +15,12 @@ namespace SonicSharp
         public double x = 0;
         public double y = 0;
         public int currentframe = 0;
-        public Vector2 origin = new Vector2(0, 0);
+        public Vector2 origin = new Vector2(20, 20);
         public float angle = 0;
         public animationstate animstate = animationstate.idle;
         public bool left = false;
-        public double xsp; //Player's X Speed
-        public double ysp; //Player's Y Speed
+        public double xsp = 0; //Player's X Speed
+        public double ysp = 0; //Player's Y Speed
 
         //Constants (We declare these as variables to allow for more flexibility.)
         public double acc = 0.046875;
@@ -83,17 +83,21 @@ namespace SonicSharp
             }
 
             x += xsp;
+            y += ysp;
+
+            Tiles.CollideWith(this);
+            
         }
 
         public void Draw()
         {
             if (!left)
             {
-                Main.spriteBatch.Draw(tex, new Vector2((float)x, 20), null, null, origin, angle, null, null, SpriteEffects.None);
+                Main.mainBatch.Draw(tex, new Vector2((float)x, (float)y), null, null, origin, angle, null, null, SpriteEffects.None);
             }
             else
             {
-                Main.spriteBatch.Draw(tex, new Vector2((float)x, 20), null, null, origin, angle, null, null, SpriteEffects.FlipHorizontally);
+                Main.mainBatch.Draw(tex, new Vector2((float)x, (float)y), null, null, origin, angle, null, null, SpriteEffects.FlipHorizontally);
             }
 
             Animate();

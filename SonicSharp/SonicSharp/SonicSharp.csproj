@@ -39,11 +39,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
+    <Compile Include="GameState.cs" />
+    <Compile Include="src\Tiles\Level.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="src\Player\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sonic.cs" />
+    <Compile Include="src\Player\Sonic.cs" />
+    <Compile Include="src\Tiles\Tile.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -53,70 +56,82 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Sprites\idle1.png">
+    <Content Include="Assets\Sprites\Player\Sonic\idle1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sprites\idle2.png">
+    <Content Include="Assets\Sprites\Player\Sonic\idle2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sprites\idle3.png">
+    <Content Include="Assets\Sprites\Player\Sonic\idle3.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sprites\idle4.png">
+    <Content Include="Assets\Sprites\Player\Sonic\idle4.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sprites\idle5.png">
+    <Content Include="Assets\Sprites\Player\Sonic\idle5.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sprites\idle6.png">
+    <Content Include="Assets\Sprites\Player\Sonic\idle6.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sprites\idle7.png">
+    <Content Include="Assets\Sprites\Player\Sonic\idle7.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sprites\idle8.png">
+    <Content Include="Assets\Sprites\Player\Sonic\idle8.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sprites\idle9.png">
+    <Content Include="Assets\Sprites\Player\Sonic\idle9.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sprites\running1.png">
+    <Content Include="Assets\Sprites\Player\Sonic\running1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sprites\running2.png">
+    <Content Include="Assets\Sprites\Player\Sonic\running2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sprites\running3.png">
+    <Content Include="Assets\Sprites\Player\Sonic\running3.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sprites\running4.png">
+    <Content Include="Assets\Sprites\Player\Sonic\running4.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sprites\walking1.png">
+    <Content Include="Levels\tstlvl\Tiles\0.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sprites\walking2.png">
+    <Content Include="Assets\Sprites\Player\Sonic\walking1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sprites\walking3.png">
+    <Content Include="Assets\Sprites\Player\Sonic\walking2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sprites\walking4.png">
+    <Content Include="Assets\Sprites\Player\Sonic\walking3.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sprites\walking5.png">
+    <Content Include="Assets\Sprites\Player\Sonic\walking4.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sprites\walking6.png">
+    <Content Include="Assets\Sprites\Player\Sonic\walking5.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sprites\walking7.png">
+    <Content Include="Assets\Sprites\Player\Sonic\walking6.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Sprites\walking8.png">
+    <Content Include="Assets\Sprites\Player\Sonic\walking7.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sprites\Player\Sonic\walking8.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
+    <Content Include="Levels\tstlvl\Tiles\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Levels\tstlvl\tstlvl.lvl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Levels\tstlvl\tstlvl.tiles">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="LICENSE.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -124,6 +139,7 @@
   <ItemGroup>
     <MonoGameContentReference Include="Assets\Content.mgcb" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

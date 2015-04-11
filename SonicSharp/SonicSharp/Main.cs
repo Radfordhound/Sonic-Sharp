@@ -13,10 +13,13 @@
 
 #region Using Statements
 using System;
+using System.Reflection;
+using System.IO;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
 #endregion
 
 namespace SonicSharp
@@ -32,7 +35,9 @@ namespace SonicSharp
 
         //Graphics-drawing
         public static GraphicsDeviceManager graphics;
-        public static SpriteBatch spriteBatch;
+        public static SpriteBatch mainBatch;
+        public static SpriteBatch tilesBatch;
+        public static ContentManager tilecm;
         
         //Screen Resolution/Size
         public static int virtualscreenwidth = 960;
@@ -40,6 +45,10 @@ namespace SonicSharp
         public static bool fullscreen = false;
 
         public static List<Player> players = new List<Player>();
+        public static string dir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
+        List<string> levels = new List<string>();
+        public static GameState gs = GameState.Level;
 
         #endregion
 
@@ -71,7 +80,6 @@ namespace SonicSharp
         /// </summary>
         protected override void Initialize()
         {
-            players.Add(new Sonic(1));
             base.Initialize();
         }
 
@@ -82,7 +90,15 @@ namespace SonicSharp
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            mainBatch = new SpriteBatch(GraphicsDevice);
+            tilesBatch = new SpriteBatch(GraphicsDevice);
+
+            tilecm = new ContentManager(Content.ServiceProvider,"Levels");
+
+            levels.Add("tstlvl");
+            Level.Load(levels[0],tilecm);
+
+            players.Add(new Sonic(1,Level.playerstartsonic));
             
             foreach (Player plr in players)
             {
@@ -96,7 +112,7 @@ namespace SonicSharp
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+            Level.UnLoad();
         }
 
         /// <summary>
@@ -134,7 +150,7 @@ namespace SonicSharp
                 graphics.PreferredBackBufferWidth = virtualscreenwidth;
                 graphics.PreferredBackBufferHeight = virtualscreenheight;
                 graphics.ApplyChanges();
-            }        
+            }
 
             oldState = Keyboard.GetState();
             base.Update(gameTime);
@@ -150,14 +166,18 @@ namespace SonicSharp
 
             Matrix scaleMatrix = GetDrawingMatrix();
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, scaleMatrix);
+            tilesBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, scaleMatrix);
+            Tiles.Draw();
+            tilesBatch.End();
+
+            mainBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, scaleMatrix);
             
             foreach (Player plr in players)
             {
                 plr.Draw();
             }
 
-            spriteBatch.End();
+            mainBatch.End();
 
             //Re-scale the window incase the user resized it.
             var scaleX = (float)GraphicsDevice.Viewport.Width / (float)virtualscreenwidth;
