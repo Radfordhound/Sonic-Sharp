@@ -83,6 +83,18 @@
     <Content Include="Assets\Sprites\Player\Sonic\idle9.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Sprites\Player\Sonic\pushing1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sprites\Player\Sonic\pushing2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sprites\Player\Sonic\pushing3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Sprites\Player\Sonic\pushing4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Sprites\Player\Sonic\running1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

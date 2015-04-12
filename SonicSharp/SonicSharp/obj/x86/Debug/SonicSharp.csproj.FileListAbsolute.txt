@@ -49,3 +49,7 @@ C:\Users\Graha_000\Documents\GitHub\Sonic-Sharp\SonicSharp\SonicSharp\bin\Window
 C:\Users\Graha_000\Documents\GitHub\Sonic-Sharp\SonicSharp\SonicSharp\bin\Windows\Debug\Levels\tstlvl\tstlvl.lvl
 C:\Users\Graha_000\Documents\GitHub\Sonic-Sharp\SonicSharp\SonicSharp\bin\Windows\Debug\Levels\tstlvl\Tiles\0.png
 C:\Users\Graha_000\Documents\GitHub\Sonic-Sharp\SonicSharp\SonicSharp\bin\Windows\Debug\Levels\tstlvl\Tiles\1.png
+C:\Users\Graha_000\Documents\GitHub\Sonic-Sharp\SonicSharp\SonicSharp\bin\Windows\Debug\Assets\Sprites\Player\Sonic\pushing1.png
+C:\Users\Graha_000\Documents\GitHub\Sonic-Sharp\SonicSharp\SonicSharp\bin\Windows\Debug\Assets\Sprites\Player\Sonic\pushing2.png
+C:\Users\Graha_000\Documents\GitHub\Sonic-Sharp\SonicSharp\SonicSharp\bin\Windows\Debug\Assets\Sprites\Player\Sonic\pushing3.png
+C:\Users\Graha_000\Documents\GitHub\Sonic-Sharp\SonicSharp\SonicSharp\bin\Windows\Debug\Assets\Sprites\Player\Sonic\pushing4.png

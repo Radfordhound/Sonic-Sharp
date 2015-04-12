@@ -1,8 +1,8 @@
 ﻿<!-- Level info -->
 <level name='Test Zone Act 1'>
-	<playerstarts>
-		<sonic X='20' Y='280'/>
-        <tails X='20' Y='280'/>
-        <knuckles X='20' Y='280'/>
+  <playerstarts>
+	  <sonic X='20' Y='280'/>
+    <tails X='20' Y='280'/>
+    <knuckles X='20' Y='280'/>
 	</playerstarts>
 </level>

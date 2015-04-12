@@ -45,10 +45,20 @@ namespace SonicSharp
             {
                 foreach (Tile tle in Level.tiles)
                 {
-                    if (tle.pos.X >= plr.x-10 && tle.pos.X+16 >= plr.x+10 && tle.pos.Y >= plr.y+20 && tle.pos.Y+16 <= plr.y)
+                    for (int i = (int)plr.x - 10; i < plr.x + 11; i++)
                     {
-                        plr.x = tle.pos.X-11;
-                        plr.xsp = 0;
+                        if (i >= tle.pos.X && i <= tle.pos.X+16 && plr.y+4 >= tle.pos.Y && plr.y+4 <= tle.pos.Y + 16)
+                        {
+                            if (tle.pos.X >= i)
+                            {
+                                plr.x = tle.pos.X - 11;
+                            }
+                            else
+                            {
+                                plr.x = (tle.pos.X+16) + 11;
+                            }
+                            plr.xsp = 0;
+                        }
                     }
                 }
             }
