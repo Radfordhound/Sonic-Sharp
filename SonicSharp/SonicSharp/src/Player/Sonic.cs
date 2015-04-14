@@ -35,6 +35,9 @@ namespace SonicSharp
             running.AddRange(new Texture2D[] { Content.Load<Texture2D>("Sprites\\Player\\Sonic\\running1"), Content.Load<Texture2D>("Sprites\\Player\\Sonic\\running2"), Content.Load<Texture2D>("Sprites\\Player\\Sonic\\running3"), Content.Load<Texture2D>("Sprites\\Player\\Sonic\\running4")});
             idle.AddRange(new Texture2D[] { Content.Load<Texture2D>("Sprites\\Player\\Sonic\\idle1"), Content.Load<Texture2D>("Sprites\\Player\\Sonic\\idle2"), Content.Load<Texture2D>("Sprites\\Player\\Sonic\\idle3"), Content.Load<Texture2D>("Sprites\\Player\\Sonic\\idle4"), Content.Load<Texture2D>("Sprites\\Player\\Sonic\\idle5"), Content.Load<Texture2D>("Sprites\\Player\\Sonic\\idle6"), Content.Load<Texture2D>("Sprites\\Player\\Sonic\\idle7"), Content.Load<Texture2D>("Sprites\\Player\\Sonic\\idle8"), Content.Load<Texture2D>("Sprites\\Player\\Sonic\\idle9") });
             pushing.AddRange(new Texture2D[] { Content.Load<Texture2D>("Sprites\\Player\\Sonic\\pushing1"), Content.Load<Texture2D>("Sprites\\Player\\Sonic\\pushing2"), Content.Load<Texture2D>("Sprites\\Player\\Sonic\\pushing3"), Content.Load<Texture2D>("Sprites\\Player\\Sonic\\pushing4") });
+            lookingup.AddRange(new Texture2D[] { Content.Load<Texture2D>("Sprites\\Player\\Sonic\\lookup1"), Content.Load<Texture2D>("Sprites\\Player\\Sonic\\lookup2") });
+            ducking.AddRange(new Texture2D[] { Content.Load<Texture2D>("Sprites\\Player\\Sonic\\duck1"), Content.Load<Texture2D>("Sprites\\Player\\Sonic\\duck2") });
+            
             tex = idle[0];
         }
     }

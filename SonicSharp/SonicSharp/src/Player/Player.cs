@@ -21,6 +21,11 @@ namespace SonicSharp
         public bool left = false;
         public double xsp = 0; //Player's X Speed
         public double ysp = 0; //Player's Y Speed
+        public bool islookingup = false;
+        public bool islookingdown = false;
+        public Vector2 prevcampos = new Vector2();
+        private int lookdelay = 0;
+        public bool canlook = true;
 
         //Constants (We declare these as variables to allow for more flexibility.)
         public double acc = 0.046875;
@@ -33,6 +38,8 @@ namespace SonicSharp
         public List<Texture2D> walking = new List<Texture2D>();
         public List<Texture2D> running = new List<Texture2D>();
         public List<Texture2D> pushing = new List<Texture2D>();
+        public List<Texture2D> lookingup = new List<Texture2D>();
+        public List<Texture2D> ducking = new List<Texture2D>();
         public Texture2D tex;
 
         public void Update(GameTime gameTime)
@@ -78,6 +85,74 @@ namespace SonicSharp
                 xsp = xsp - Math.Min(Math.Abs(xsp), frc) * Math.Sign(xsp);
             }
 
+            if ((kbst.IsKeyDown(Keys.Up) || kbst.IsKeyDown(Keys.W)) && xsp == 0 && (animstate == animationstate.idle || animstate == animationstate.lookingup))
+            {
+                if (canlook)
+                {
+                    if (animstate != animationstate.lookingup)
+                    {
+                        prevcampos = Camera.campos;
+                        animstate = animationstate.lookingup;
+                        currentframe = 0;
+                    }
+                    else if (lookdelay >= 120 && Camera.campos.Y > prevcampos.Y - 104)
+                    {
+                        Camera.campos.Y -= 2;
+                        Console.WriteLine(animstate.ToString());
+                    }
+                    else
+                    {
+                        lookdelay++;
+                    }
+                    
+                }
+            }
+            else
+            {
+                if (animstate == animationstate.lookingup)
+                {
+                    Camera.yspeed = 2;
+                    lookdelay = 0;
+                    canlook = false;
+                    animstate = animationstate.idle;
+                    currentframe = 0;
+                }
+            }
+            
+            if ((kbst.IsKeyDown(Keys.Down) || kbst.IsKeyDown(Keys.S)) && xsp == 0 && (animstate == animationstate.idle || animstate == animationstate.ducking))
+            {
+                if (canlook)
+                {
+                    if (animstate != animationstate.ducking)
+                    {
+                        prevcampos = Camera.campos;
+                        animstate = animationstate.ducking;
+                        currentframe = 0;
+                    }
+                    else if (lookdelay >= 120 && Camera.campos.Y < prevcampos.Y + 88)
+                    {
+                        Camera.campos.Y += 2;
+                        Console.WriteLine(Camera.campos.Y + " , " + (prevcampos.Y+88).ToString() + " , " + lookdelay);
+                    }
+                    else
+                    {
+                        lookdelay++;
+                    }
+                }
+            }
+            else
+            {
+                if (animstate == animationstate.ducking)
+                {
+                    Camera.yspeed = 2;
+                    lookdelay = 0;
+                    canlook = false;
+                    animstate = animationstate.idle;
+                    currentframe = 0;
+                }
+                
+            }
+
             if (this.GetType() == typeof(Sonic))
             {
                 //Custom Sonic-only logic goes here.
@@ -111,7 +186,7 @@ namespace SonicSharp
 
         public void GetAnimState()
         {
-            if (animstate != animationstate.pushing)
+            if (animstate != animationstate.pushing && animstate != animationstate.ducking && animstate != animationstate.lookingup)
             {
                 if (xsp >= 6 || xsp <= -6)
                 {
@@ -140,9 +215,13 @@ namespace SonicSharp
             }
             else
             {
-                if (!(Keyboard.GetState().IsKeyDown(Keys.D) || Keyboard.GetState().IsKeyDown(Keys.A) || Keyboard.GetState().IsKeyDown(Keys.Left) || Keyboard.GetState().IsKeyDown(Keys.Right)))
+                if (animstate == animationstate.pushing)
                 {
-                    animstate = animationstate.idle;
+                    if (!(Keyboard.GetState().IsKeyDown(Keys.D) || Keyboard.GetState().IsKeyDown(Keys.A) || Keyboard.GetState().IsKeyDown(Keys.Left) || Keyboard.GetState().IsKeyDown(Keys.Right)))
+                    {
+                        animstate = animationstate.idle;
+                        canlook = true;
+                    }
                 }
             }
         }
@@ -363,6 +442,28 @@ namespace SonicSharp
                     currentframe = 0;
                 }
             }
+            else if (animstate == animationstate.lookingup)
+            {
+                if (currentframe < 7)
+                {
+                    tex = lookingup[0];
+                }
+                else if (currentframe >= 7 && currentframe <= 14)
+                {
+                    tex = lookingup[1];
+                }
+            }
+            else if (animstate == animationstate.ducking)
+            {
+                if (currentframe < 7)
+                {
+                    tex = ducking[0];
+                }
+                else if (currentframe >= 7 && currentframe <= 14)
+                {
+                    tex = ducking[1];
+                }
+            }
             currentframe++;
         }
 
@@ -371,7 +472,9 @@ namespace SonicSharp
             idle,
             walking,
             running,
-            pushing
+            pushing,
+            lookingup,
+            ducking
         }
     }
 }

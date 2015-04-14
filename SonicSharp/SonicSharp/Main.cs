@@ -142,14 +142,17 @@ namespace SonicSharp
                 }
                 else
                 {
-                    virtualscreenwidth = 960;
-                    virtualscreenheight = 540;
                     Window.IsBorderless = false;
+                    //virtualscreenwidth = 960;
+                    //virtualscreenheight = 540;
                 }
 
                 graphics.PreferredBackBufferWidth = virtualscreenwidth;
                 graphics.PreferredBackBufferHeight = virtualscreenheight;
                 graphics.ApplyChanges();
+
+                virtualscreenwidth = Window.ClientBounds.Width;
+                virtualscreenheight = Window.ClientBounds.Height;
             }
 
             oldState = Keyboard.GetState();
@@ -181,6 +184,9 @@ namespace SonicSharp
             mainBatch.End();
 
             //Re-scale the window incase the user resized it.
+            virtualscreenwidth = Window.ClientBounds.Width;
+            virtualscreenheight = Window.ClientBounds.Height;
+
             var scaleX = (float)GraphicsDevice.Viewport.Width / (float)virtualscreenwidth;
             var scaleY = (float)GraphicsDevice.Viewport.Height / (float)virtualscreenheight;
             scale = new Vector3(scaleX * 2, scaleY * 2, 1.0f);
