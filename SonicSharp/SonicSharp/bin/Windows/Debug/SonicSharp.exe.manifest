@@ -163,14 +163,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SonicSharp.exe" size="171968">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SonicSharp.exe" size="172480">
       <assemblyIdentity name="SonicSharp" version="3.3.0.2238" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>N0w+uxHlAjELWxDYlPOMB2JlXks=</dsig:DigestValue>
+        <dsig:DigestValue>6PBXcKDkGfrsOOjtkBEZKplYXHA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

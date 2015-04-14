@@ -14,7 +14,9 @@ namespace SonicSharp
         public int id; //The id of the player. For example, 1 for player 1, 2 for player 2, etc.
         public double x = 0;
         public double y = 0;
+        public bool falling = true;
         public int currentframe = 0;
+        public int frmindex = 0;
         public Vector2 origin = new Vector2(20, 20);
         public float angle = 0;
         public animationstate animstate = animationstate.idle;
@@ -153,6 +155,15 @@ namespace SonicSharp
                 
             }
 
+            if (falling)
+            {
+                ysp = 1;
+            }
+            else
+            {
+                ysp = 0;
+            }
+
             if (this.GetType() == typeof(Sonic))
             {
                 //Custom Sonic-only logic goes here.
@@ -226,25 +237,45 @@ namespace SonicSharp
             }
         }
 
-        public void GetFrames(int beginframe,int endframe,int framerate,double[] frames)
+        public Texture2D GetTexture(double[] frames,List<Texture2D> textures)
         {
-            if (currentframe < beginframe)
+            if (currentframe < frames[0])
             {
-                tex = idle[0];
+                return textures[0];
             }
             else
             {
-                for (int i = 0; i < endframe;i++)
-                {
-                    //
-                }
 
-                if (currentframe >= frames[currentframe/framerate] && currentframe < currentframe+framerate)
+                for (int i = 0; i < frames.Length;i++)
                 {
-                    //
+                    if (currentframe >= frames[i] && frames.Length >= i+1 && currentframe < frames[i+1])
+                    {
+                        return textures[i];
+                    }
                 }
             }
+            return null;
         }
+
+        /*public Texture2D GetTexture(int framerate, List<Texture2D> textures)
+        {
+            if (currentframe < frames[0])
+            {
+                return textures[0];
+            }
+            else
+            {
+
+                for (int i = 0; i < frames.Length; i++)
+                {
+                    if (currentframe >= frames[i] && frames.Length >= i + 1 && currentframe < frames[i + 1])
+                    {
+                        return textures[i];
+                    }
+                }
+            }
+            return null;
+        }*/
 
         public void Animate()
         {
@@ -354,6 +385,10 @@ namespace SonicSharp
                     currentframe = 317;
                 }
             }
+            /*if (animstate == animationstate.idle)
+            {
+                tex = GetTexture(new double[] { 300,306,312,317,330,342,354,366,378,390,402,414,426,438,450,462,474,486,498,510,546,582,588,624,635}, idle); //test
+            }*/
             if (animstate == animationstate.walking)
             {
                 if (currentframe < Math.Max(8 - Math.Abs(xsp), 1))

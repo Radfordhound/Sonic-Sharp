@@ -48,8 +48,11 @@ namespace SonicSharp
                     plr.animstate = Player.animationstate.idle;
                 }
 
+                plr.falling = true; //We reset this every time we update the collision to prevent the player from "floating" in mid-air.
+
                 foreach (Tile tle in Level.tiles)
                 {
+                    //Horizontal Collision
                     for (int i = (int)plr.x - 10; i < plr.x + 11; i++)
                     {
                         if (i >= tle.pos.X && i <= tle.pos.X+16 && plr.y+4 >= tle.pos.Y && plr.y+4 <= tle.pos.Y + 16)
@@ -65,6 +68,29 @@ namespace SonicSharp
 
                             plr.animstate = Player.animationstate.pushing;
                             plr.xsp = 0;
+                        }
+                    }
+
+                    //Vertical Collision
+                    for (int i = (int)plr.y; i < plr.y + 20; i++)
+                    {
+                        if (i >= tle.pos.Y && i <= tle.pos.Y + 16)
+                        {
+                            if (plr.x - 9 >= tle.pos.X && plr.x - 9 <= tle.pos.X + 16)
+                            {
+                                //Sensor A
+                                plr.y = tle.pos.Y - 20;
+                                plr.ysp = 0;
+                                plr.falling = false;
+                            }
+
+                            if (plr.x + 9 >= tle.pos.X && plr.x + 9 <= tle.pos.X + 16)
+                            {
+                                //Sensor B
+                                plr.y = tle.pos.Y - 20;
+                                plr.ysp = 0;
+                                plr.falling = false;
+                            }
                         }
                     }
                 }
