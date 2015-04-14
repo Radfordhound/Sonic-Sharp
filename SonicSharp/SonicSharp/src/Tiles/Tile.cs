@@ -57,6 +57,8 @@ namespace SonicSharp
                             {
                                 plr.x = (tle.pos.X+16) + 11;
                             }
+
+                            plr.animstate = Player.animationstate.pushing;
                             plr.xsp = 0;
                         }
                     }

@@ -143,7 +143,7 @@ namespace SonicSharp
                 else
                 {
                     virtualscreenwidth = 960;
-                    virtualscreenheight = 450;
+                    virtualscreenheight = 540;
                     Window.IsBorderless = false;
                 }
 
@@ -153,6 +153,7 @@ namespace SonicSharp
             }
 
             oldState = Keyboard.GetState();
+            Camera.Update();
             base.Update(gameTime);
         }
 
@@ -171,7 +172,7 @@ namespace SonicSharp
             tilesBatch.End();
 
             mainBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, scaleMatrix);
-            
+
             foreach (Player plr in players)
             {
                 plr.Draw();

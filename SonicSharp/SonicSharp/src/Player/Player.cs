@@ -32,6 +32,7 @@ namespace SonicSharp
         public List<Texture2D> idle = new List<Texture2D>();
         public List<Texture2D> walking = new List<Texture2D>();
         public List<Texture2D> running = new List<Texture2D>();
+        public List<Texture2D> pushing = new List<Texture2D>();
         public Texture2D tex;
 
         public void Update(GameTime gameTime)
@@ -110,35 +111,60 @@ namespace SonicSharp
 
         public void GetAnimState()
         {
-            if (xsp >= 6 || xsp <= -6)
+            if (animstate != animationstate.pushing)
             {
-                if (animstate != animationstate.running)
+                if (xsp >= 6 || xsp <= -6)
                 {
-                    animstate = animationstate.running;
-                    currentframe = 0;
+                    if (animstate != animationstate.running)
+                    {
+                        animstate = animationstate.running;
+                        currentframe = 0;
+                    }
                 }
-            }
-            else if (xsp != 0)
-            {
-                if (animstate != animationstate.walking)
+                else if (xsp != 0)
                 {
-                    animstate = animationstate.walking;
-                    currentframe = 0;
+                    if (animstate != animationstate.walking)
+                    {
+                        animstate = animationstate.walking;
+                        currentframe = 0;
+                    }
+                }
+                else
+                {
+                    if (animstate != animationstate.idle)
+                    {
+                        animstate = animationstate.idle;
+                        currentframe = 0;
+                    }
                 }
             }
             else
             {
-                if (animstate != animationstate.idle)
+                if (!(Keyboard.GetState().IsKeyDown(Keys.D) || Keyboard.GetState().IsKeyDown(Keys.A) || Keyboard.GetState().IsKeyDown(Keys.Left) || Keyboard.GetState().IsKeyDown(Keys.Right)))
                 {
                     animstate = animationstate.idle;
-                    currentframe = 0;
                 }
             }
         }
 
-        public void GetFrames()
+        public void GetFrames(int beginframe,int endframe,int framerate,double[] frames)
         {
-            //
+            if (currentframe < beginframe)
+            {
+                tex = idle[0];
+            }
+            else
+            {
+                for (int i = 0; i < endframe;i++)
+                {
+                    //
+                }
+
+                if (currentframe >= frames[currentframe/framerate] && currentframe < currentframe+framerate)
+                {
+                    //
+                }
+            }
         }
 
         public void Animate()
@@ -313,6 +339,30 @@ namespace SonicSharp
                     currentframe = 0;
                 }
             }
+            else if (animstate == animationstate.pushing)
+            {
+                if (currentframe < 32)
+                {
+                    tex = pushing[0];
+                }
+                else if (currentframe >= 32 && currentframe <= 64)
+                {
+                    tex = pushing[1];
+                }
+                else if (currentframe >= 64 && currentframe <= 96)
+                {
+                    tex = pushing[2];
+                }
+                else if (currentframe >= 96 && currentframe <= 128)
+                {
+                    tex = pushing[3];
+                }
+                else
+                {
+                    tex = pushing[0];
+                    currentframe = 0;
+                }
+            }
             currentframe++;
         }
 
@@ -320,7 +370,8 @@ namespace SonicSharp
         {
             idle,
             walking,
-            running
+            running,
+            pushing
         }
     }
 }
