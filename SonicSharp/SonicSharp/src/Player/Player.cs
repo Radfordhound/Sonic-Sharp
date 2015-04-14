@@ -14,7 +14,6 @@ namespace SonicSharp
         public int id; //The id of the player. For example, 1 for player 1, 2 for player 2, etc.
         public double x = 0;
         public double y = 0;
-        public bool falling = true;
         public int currentframe = 0;
         public int frmindex = 0;
         public Vector2 origin = new Vector2(20, 20);
@@ -29,6 +28,12 @@ namespace SonicSharp
         private int lookdelay = 0;
         public bool canlook = true;
 
+        public bool falling = true;
+        public bool sensora = false;
+        public bool sensorb = false;
+        public Vector2 sensoratilepos;
+        public Vector2 sensorbtilepos;
+
         //Constants (We declare these as variables to allow for more flexibility.)
         public double acc = 0.046875;
         public double dec = 0.5;
@@ -42,6 +47,7 @@ namespace SonicSharp
         public List<Texture2D> pushing = new List<Texture2D>();
         public List<Texture2D> lookingup = new List<Texture2D>();
         public List<Texture2D> ducking = new List<Texture2D>();
+        public List<Texture2D> balancing = new List<Texture2D>();
         public Texture2D tex;
 
         public void Update(GameTime gameTime)
@@ -89,7 +95,7 @@ namespace SonicSharp
 
             if ((kbst.IsKeyDown(Keys.Up) || kbst.IsKeyDown(Keys.W)) && xsp == 0 && (animstate == animationstate.idle || animstate == animationstate.lookingup))
             {
-                if (canlook)
+                if (canlook && animstate != animationstate.balancing)
                 {
                     if (animstate != animationstate.lookingup)
                     {
@@ -197,7 +203,7 @@ namespace SonicSharp
 
         public void GetAnimState()
         {
-            if (animstate != animationstate.pushing && animstate != animationstate.ducking && animstate != animationstate.lookingup)
+            if (animstate != animationstate.pushing && animstate != animationstate.ducking && animstate != animationstate.lookingup && animstate != animationstate.balancing)
             {
                 if (xsp >= 6 || xsp <= -6)
                 {
@@ -233,6 +239,11 @@ namespace SonicSharp
                         animstate = animationstate.idle;
                         canlook = true;
                     }
+                }
+
+                if (animstate == animationstate.balancing && (xsp != 0 || ysp != 0))
+                {
+                    animstate = animationstate.idle;
                 }
             }
         }
@@ -499,6 +510,26 @@ namespace SonicSharp
                     tex = ducking[1];
                 }
             }
+            else if (animstate == animationstate.balancing)
+            {
+                if (currentframe < 16)
+                {
+                    tex = balancing[0];
+                }
+                else if (currentframe >= 16 && currentframe <= 32)
+                {
+                    tex = balancing[1];
+                }
+                else if (currentframe >= 32 && currentframe <= 48)
+                {
+                    tex = balancing[2];
+                }
+                else
+                {
+                    tex = balancing[0];
+                    currentframe = 0;
+                }
+            }
             currentframe++;
         }
 
@@ -509,7 +540,8 @@ namespace SonicSharp
             running,
             pushing,
             lookingup,
-            ducking
+            ducking,
+            balancing
         }
     }
 }

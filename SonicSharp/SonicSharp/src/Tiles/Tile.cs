@@ -48,7 +48,10 @@ namespace SonicSharp
                     plr.animstate = Player.animationstate.idle;
                 }
 
-                plr.falling = true; //We reset this every time we update the collision to prevent the player from "floating" in mid-air.
+                //We reset these every time we update the collision to prevent the player from "floating" in mid-air.
+                plr.falling = true;
+                plr.sensora = false;
+                plr.sensorb = false;
 
                 foreach (Tile tle in Level.tiles)
                 {
@@ -82,6 +85,8 @@ namespace SonicSharp
                                 plr.y = tle.pos.Y - 20;
                                 plr.ysp = 0;
                                 plr.falling = false;
+                                plr.sensora = true;
+                                plr.sensoratilepos = tle.pos;
                             }
 
                             if (plr.x + 9 >= tle.pos.X && plr.x + 9 <= tle.pos.X + 16)
@@ -90,8 +95,23 @@ namespace SonicSharp
                                 plr.y = tle.pos.Y - 20;
                                 plr.ysp = 0;
                                 plr.falling = false;
+                                plr.sensorb = true;
+                                plr.sensorbtilepos = tle.pos;
                             }
                         }
+                    }
+                }
+
+                if ((plr.sensora || plr.sensorb) && !(plr.sensora && plr.sensorb))
+                {
+                    //Only one sensor is active.
+                    if (plr.sensora && plr.x > plr.sensoratilepos.X + 16 && plr.xsp == 0 && plr.ysp == 0)
+                    {
+                        //plr.animstate = Player.animationstate.balancing;
+                    }
+                    else if (plr.sensorb && plr.x < plr.sensorbtilepos.X && plr.xsp == 0 && plr.ysp == 0)
+                    {
+                        //plr.animstate = Player.animationstate.balancing;
                     }
                 }
             }

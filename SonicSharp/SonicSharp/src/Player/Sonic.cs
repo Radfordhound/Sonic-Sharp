@@ -37,6 +37,7 @@ namespace SonicSharp
             pushing.AddRange(new Texture2D[] { Content.Load<Texture2D>("Sprites\\Player\\Sonic\\pushing1"), Content.Load<Texture2D>("Sprites\\Player\\Sonic\\pushing2"), Content.Load<Texture2D>("Sprites\\Player\\Sonic\\pushing3"), Content.Load<Texture2D>("Sprites\\Player\\Sonic\\pushing4") });
             lookingup.AddRange(new Texture2D[] { Content.Load<Texture2D>("Sprites\\Player\\Sonic\\lookup1"), Content.Load<Texture2D>("Sprites\\Player\\Sonic\\lookup2") });
             ducking.AddRange(new Texture2D[] { Content.Load<Texture2D>("Sprites\\Player\\Sonic\\duck1"), Content.Load<Texture2D>("Sprites\\Player\\Sonic\\duck2") });
+            balancing.AddRange(new Texture2D[] { Content.Load<Texture2D>("Sprites\\Player\\Sonic\\balancing1"), Content.Load<Texture2D>("Sprites\\Player\\Sonic\\balancing2"), Content.Load<Texture2D>("Sprites\\Player\\Sonic\\balancing3") });
             
             tex = idle[0];
         }

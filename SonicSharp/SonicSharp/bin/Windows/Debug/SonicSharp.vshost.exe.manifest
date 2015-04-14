@@ -163,17 +163,44 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SonicSharp.exe" size="172480">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SonicSharp.exe" size="174016">
       <assemblyIdentity name="SonicSharp" version="3.3.0.2238" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>6PBXcKDkGfrsOOjtkBEZKplYXHA=</dsig:DigestValue>
+        <dsig:DigestValue>1PUbqz+t4Wa8UWKcyCn5d24LOE0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
+  <file name="Assets\Sprites\Player\Sonic\balancing1.png" size="792">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>p6e23cFDRkmd6Sj5Sh789PoREtg=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Assets\Sprites\Player\Sonic\balancing2.png" size="794">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>wWPhQKNtuj389p0BfA+UYTCaCVI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Assets\Sprites\Player\Sonic\balancing3.png" size="788">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>rxEeUiJIRaFtIF1ItwtlFC9t1Xk=</dsig:DigestValue>
+    </hash>
+  </file>
   <file name="Assets\Sprites\Player\Sonic\duck1.png" size="692">
     <hash>
       <dsig:Transforms>
@@ -444,7 +471,7 @@
       <dsig:DigestValue>f+7gGnvdgBlfPh4ucO68FI6yGRk=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Levels\tstlvl\Tiles\0.png" size="168">
+  <file name="Levels\tstlvl\Tiles\sprs\0.png" size="168">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -453,7 +480,7 @@
       <dsig:DigestValue>vYE3dgLc+J76HYVY+QgF7wPtLxs=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Levels\tstlvl\Tiles\1.png" size="176">
+  <file name="Levels\tstlvl\Tiles\sprs\1.png" size="176">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />

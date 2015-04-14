@@ -36,6 +36,15 @@ namespace SonicSharp
             }
         }
 
+        private static HeightMap Loadlvlhms(string file)
+        {
+            if (File.Exists(file))
+            {
+                return new HeightMap(File.ReadAllLines(file).Select(int.Parse).ToList());
+            }
+            return new HeightMap(new List<int> { 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16 });
+        }
+
         private static void LoadlvlTexture(ContentManager Content,string fn,int tlcnt)
         {
             Content.RootDirectory = "Levels\\" + fn;
@@ -44,9 +53,9 @@ namespace SonicSharp
 
             foreach(string ext in supportedextensions)
             {
-                if (File.Exists(string.Format("{0}\\Levels\\{1}\\Tiles\\{2}.{3}",Main.dir,fn,tlcnt,ext)))
+                if (File.Exists(string.Format("{0}\\Levels\\{1}\\Tiles\\sprs\\{2}.{3}",Main.dir,fn,tlcnt,ext)))
                 {
-                    Level.tiletextures.Add(Content.Load<Texture2D>("Tiles\\" + tlcnt));
+                    Level.tiletextures.Add(Content.Load<Texture2D>("Tiles\\sprs\\" + tlcnt));
                     break;
                 }
             }
@@ -95,8 +104,7 @@ namespace SonicSharp
             //Load the level's tile positions.
             string lvltiletxt = File.ReadAllText(lvldir + ".tiles");
 
-            //Temporary!
-            HeightMap hm = new HeightMap(new List<int> { 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16 });
+            HeightMap hm = Loadlvlhms(lvldir + "\\HMs");
 
             //Get the data from the .tiles file.
             using (XmlReader reader = XmlReader.Create(new StringReader(lvltiletxt)))
@@ -123,7 +131,7 @@ namespace SonicSharp
                         }
 
                         //Make the tiles using the loaded data.
-                        tiles.Add(new Tile(new Vector2(tlposx, tlposy), tiletextures[tltex], hm));
+                        tiles.Add(new Tile(new Vector2(tlposx, tlposy), tiletextures[tltex], Loadlvlhms(Main.dir + "\\Levels\\" + fn + "\\Tiles\\HMs\\" + tltex.ToString() + ".hm")));
                         tilecnt++;
                     }
                 }
