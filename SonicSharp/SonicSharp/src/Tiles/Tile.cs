@@ -43,6 +43,11 @@ namespace SonicSharp
         {
             if (Main.gs == GameState.Level)
             {
+                if (plr.animstate == Player.animationstate.pushing)
+                {
+                    plr.animstate = Player.animationstate.idle;
+                }
+
                 foreach (Tile tle in Level.tiles)
                 {
                     for (int i = (int)plr.x - 10; i < plr.x + 11; i++)
