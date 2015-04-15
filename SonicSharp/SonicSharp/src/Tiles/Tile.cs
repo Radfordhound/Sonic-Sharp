@@ -82,9 +82,6 @@ namespace SonicSharp
                             if (plr.x - 9 >= tle.pos.X && plr.x - 9 <= tle.pos.X + 16)
                             {
                                 //Sensor A
-                                plr.y = tle.pos.Y - 20;
-                                plr.ysp = 0;
-                                plr.falling = false;
                                 plr.sensora = true;
                                 plr.sensoratilepos = tle.pos;
                             }
@@ -92,9 +89,6 @@ namespace SonicSharp
                             if (plr.x + 9 >= tle.pos.X && plr.x + 9 <= tle.pos.X + 16)
                             {
                                 //Sensor B
-                                plr.y = tle.pos.Y - 20;
-                                plr.ysp = 0;
-                                plr.falling = false;
                                 plr.sensorb = true;
                                 plr.sensorbtilepos = tle.pos;
                             }
@@ -105,13 +99,32 @@ namespace SonicSharp
                 if ((plr.sensora || plr.sensorb) && !(plr.sensora && plr.sensorb))
                 {
                     //Only one sensor is active.
-                    if (plr.sensora && plr.x > plr.sensoratilepos.X + 16 && plr.xsp == 0 && plr.ysp == 0)
+                    if (plr.sensora && plr.x > plr.sensoratilepos.X + 16 && plr.xsp == 0)
                     {
-                        //plr.animstate = Player.animationstate.balancing;
+                        plr.animstate = Player.animationstate.balancing;
                     }
-                    else if (plr.sensorb && plr.x < plr.sensorbtilepos.X && plr.xsp == 0 && plr.ysp == 0)
+                    else if (plr.sensorb && plr.x < plr.sensorbtilepos.X && plr.xsp == 0)
                     {
-                        //plr.animstate = Player.animationstate.balancing;
+                        plr.animstate = Player.animationstate.balancing;
+                    }
+
+                    if (plr.sensora) { plr.y = plr.sensoratilepos.Y - 20; } else { plr.y = plr.sensorbtilepos.Y - 20; }
+
+                    plr.ysp = 0;
+                    plr.falling = false;
+                }
+                else if (plr.sensora && plr.sensorb)
+                {
+                    plr.ysp = 0;
+                    plr.falling = false;
+
+                    if (plr.sensoratilepos.Y < plr.sensorbtilepos.Y)
+                    {
+                        plr.y = plr.sensoratilepos.Y - 20;
+                    }
+                    else
+                    {
+                        plr.y = plr.sensorbtilepos.Y - 20;
                     }
                 }
             }

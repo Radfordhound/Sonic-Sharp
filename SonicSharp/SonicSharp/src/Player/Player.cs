@@ -203,6 +203,8 @@ namespace SonicSharp
 
         public void GetAnimState()
         {
+            origin = new Vector2(origin.X, 20);
+
             if (animstate != animationstate.pushing && animstate != animationstate.ducking && animstate != animationstate.lookingup && animstate != animationstate.balancing)
             {
                 if (xsp >= 6 || xsp <= -6)
@@ -244,6 +246,10 @@ namespace SonicSharp
                 if (animstate == animationstate.balancing && (xsp != 0 || ysp != 0))
                 {
                     animstate = animationstate.idle;
+                }
+                else if (animstate == animationstate.balancing)
+                {
+                    origin = new Vector2(origin.X,22);
                 }
             }
         }
