@@ -39,6 +39,7 @@ namespace SonicSharp
         public double dec = 0.5;
         public double frc = 0.046875;
         public int top = 6;
+        public double grv = 0.21875;
 
         //Textures
         public List<Texture2D> idle = new List<Texture2D>();
@@ -163,7 +164,12 @@ namespace SonicSharp
 
             if (falling)
             {
-                ysp = 1;
+                ysp += grv;
+
+                if (ysp > 16)
+                {
+                    ysp = 16;
+                }
             }
             else
             {
