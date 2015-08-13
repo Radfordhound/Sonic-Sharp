@@ -24,3 +24,6 @@ C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\obj\x86\Debug\SonicSharp.cspr
 C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\obj\x86\Debug\SonicSharp.exe
 C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\obj\x86\Debug\SonicSharp.pdb
 C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Content\Sprites\HUD\HUDfont.png
+C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Content\Sprites\Players\Sonic\idle.png
+C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Content\Sprites\Players\Sonic\running.png
+C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Content\Sprites\Players\Sonic\walking.png

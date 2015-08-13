@@ -65,17 +65,17 @@ namespace SonicSharp
         {
             float newx = x, newy = y;
 
-            for (int i = 0; i < text.Length; i++)
+            foreach (char ch in text)
             {
-                Main.spriteBatch.Draw(texture: texture, position: new Vector2(newx, newy), sourceRectangle: chartexturepieces[findcharindex(text[i])]);
+                Main.spriteBatch.Draw(texture: texture, position: new Vector2(newx, newy), sourceRectangle: chartexturepieces[findcharindex(ch)]);
 
-                if ((newx + chartexturepieces[findcharindex(text[i])].Width+1)*Main.scalemodifier < Camera.pos.X + Program.game.Window.ClientBounds.Width)
+                if ((newx + chartexturepieces[findcharindex(ch)].Width+1)*Main.scalemodifier < Camera.pos.X + Program.game.Window.ClientBounds.Width)
                 {
-                    newx += chartexturepieces[findcharindex(text[i])].Width+1;
+                    newx += chartexturepieces[findcharindex(ch)].Width+1;
                 }
                 else
                 {
-                    newy += chartexturepieces[findcharindex(text[i])].Height+1;
+                    newy += chartexturepieces[findcharindex(ch)].Height+1;
                     newx = x;
                 }
             }
