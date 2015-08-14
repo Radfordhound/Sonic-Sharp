@@ -7,13 +7,14 @@ namespace SonicSharp
     {
         public Texture2D texture;
         public Rectangle[] frames;
-        public int currentframe = 0;
-        public int curfrm = 0;
+        public int currentframe = 0, curfrm = 0;
+        public float framerate = 1;
 
-        public Sprite(Texture2D texture, int framecount, int framewidth, int frameheight, int framesperrow, int framespercolumn)
+        public Sprite(Texture2D texture, int framecount, int framewidth, int frameheight, int framesperrow, int framespercolumn, float framerate = 1)
         {
             frames = new Rectangle[framecount];
             this.texture = texture;
+            this.framerate = framerate;
             int i = 0;
 
             for (int y=0;y<framespercolumn*frameheight; y+=frameheight)
@@ -30,10 +31,11 @@ namespace SonicSharp
             }
         }
 
-        public Sprite(Texture2D texture, Rectangle[] frames)
+        public Sprite(Texture2D texture, Rectangle[] frames, float framerate = 1)
         {
             this.frames = frames;
             this.texture = texture;
+            this.framerate = framerate;
         }
 
         /// <summary>

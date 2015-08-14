@@ -17,13 +17,17 @@ namespace SonicSharp
         public static Font font;
         public static Color bgcolor = Color.Black;
         public static int scalemodifier = 2;
-        private Vector3 scale;
+        public static bool fullscreen = false;
+        
         private int virtualscreenwidth = 800, virtualscreenheight = 600;
+        private Point windowstartpos;
+        private Vector3 scale;
 
         //Other variables
         public static GameState gamestate = GameState.loading;
+        public static KeyboardState kbst, prevkbst; //TODO: Add controller support
         public static List<Player> players = new List<Player>();
-        public static string versionstring = "DEV 1.0";
+        public static string versionstring = "DEV 1.1";
 
         public enum GameState { loading, inlevel }
 
@@ -42,8 +46,7 @@ namespace SonicSharp
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            windowstartpos = Window.Position;
             base.Initialize();
         }
 
@@ -68,6 +71,7 @@ namespace SonicSharp
         private void LoadContentAsync()
         {
             players.Add(new Sonic(20,20)); //TODO: Remove this temporary line!
+            Level.Load(); //TODO: Remove this temporary line!
             gamestate = GameState.inlevel;
         }
 
@@ -87,13 +91,25 @@ namespace SonicSharp
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit(); //TODO: Remove this line
+            kbst = Keyboard.GetState();
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || kbst.IsKeyDown(Keys.Escape)) Exit(); //TODO: Remove this line
 
             if (gamestate == GameState.inlevel)
             {
                 Level.Update();
             }
 
+            if (kbst.IsKeyDown(Keys.F11) && !prevkbst.IsKeyDown(Keys.F11))
+            {
+                fullscreen = !fullscreen;
+                Window.IsBorderless = fullscreen;
+                Window.Position = (fullscreen) ? Point.Zero : windowstartpos;
+                graphics.PreferredBackBufferWidth = (fullscreen) ? graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width:800;
+                graphics.PreferredBackBufferHeight = (fullscreen) ? graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height:480;
+                graphics.ApplyChanges();
+            }
+
+            prevkbst = kbst;
             base.Update(gameTime);
         }
 

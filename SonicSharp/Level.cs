@@ -11,6 +11,15 @@ namespace SonicSharp
         public static List<Texture2D> tilesets = new List<Texture2D>();
         public static List<Tile> tiles = new List<Tile>();
 
+        public static void Load()
+        {
+            //TODO: Add code to load level
+            for (int i = 0; i < Main.players.Count; i++)
+            {
+                Main.players[i].active = true;
+            }
+        }
+
         public static void Update()
         {
             for (int i = 0; i < Main.players.Count; i++)
