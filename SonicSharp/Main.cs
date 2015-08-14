@@ -27,7 +27,7 @@ namespace SonicSharp
         public static GameState gamestate = GameState.loading;
         public static KeyboardState kbst, prevkbst; //TODO: Add controller support
         public static List<Player> players = new List<Player>();
-        public static string versionstring = "DEV 1.1";
+        public static string versionstring = "DEV 1.2";
 
         public enum GameState { loading, inlevel }
 

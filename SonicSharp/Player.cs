@@ -13,7 +13,20 @@ namespace SonicSharp
     {
         public Sonic(float x, float y) : base (x,y)
         {
-            idlesprite = new Sprite(Program.game.Content.Load<Texture2D>("Sprites\\Players\\Sonic\\idle"),9,40,40,9,1,6);
+            idlesprite = new Sprite(Program.game.Content.Load<Texture2D>("Sprites\\Players\\Sonic\\idle"), new Rectangle[]
+            {
+                new Rectangle(0,0,40,40), new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),
+                new Rectangle(0,0,40,40), new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),
+                new Rectangle(0,0,40,40), new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),
+                new Rectangle(0,0,40,40), new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),
+                new Rectangle(0,0,40,40), new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),new Rectangle(0,0,40,40),
+                new Rectangle(40,0,40,40), new Rectangle(80,0,40,40),new Rectangle(80,0,40,40),new Rectangle(120,0,40,40),new Rectangle(120,0,40,40),new Rectangle(160,0,40,40),new Rectangle(160,0,40,40),new Rectangle(120,0,40,40),new Rectangle(120,0,40,40),new Rectangle(160,0,40,40),
+                new Rectangle(160,0,40,40), new Rectangle(120,0,40,40),new Rectangle(120,0,40,40),new Rectangle(160,0,40,40),new Rectangle(160,0,40,40),new Rectangle(120,0,40,40),new Rectangle(120,0,40,40),new Rectangle(160,0,40,40),new Rectangle(160,0,40,40),new Rectangle(120,0,40,40),
+                new Rectangle(120,0,40,40),new Rectangle(160,0,40,40),new Rectangle(160,0,40,40),new Rectangle(120,0,40,40),new Rectangle(120,0,40,40),new Rectangle(160,0,40,40),new Rectangle(160,0,40,40),new Rectangle(120,0,40,40),new Rectangle(120,0,40,40),new Rectangle(160,0,40,40),
+                new Rectangle(160,0,40,40),new Rectangle(120,0,40,40),new Rectangle(120,0,40,40),new Rectangle(200,0,40,40),new Rectangle(200,0,40,40),new Rectangle(200,0,40,40),new Rectangle(200,0,40,40),new Rectangle(240,0,40,40),new Rectangle(240,0,40,40),new Rectangle(240,0,40,40),
+                new Rectangle(240,0,40,40),new Rectangle(240,0,40,40),new Rectangle(280,0,40,40),new Rectangle(320,0,40,40),new Rectangle(320,0,40,40),new Rectangle(320,0,40,40),new Rectangle(320,0,40,40),new Rectangle(280,0,40,40),new Rectangle(280,0,40,40)
+            },6,53);
+
             walkingsprite = new Sprite(Program.game.Content.Load<Texture2D>("Sprites\\Players\\Sonic\\walking"),8,40,40,8,1);
             runningsprite = new Sprite(Program.game.Content.Load<Texture2D>("Sprites\\Players\\Sonic\\running"),4,40,40,4,1);
             sprite = idlesprite;
