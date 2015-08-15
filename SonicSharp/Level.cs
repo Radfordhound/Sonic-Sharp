@@ -1,22 +1,116 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
+using NTiled;
+using System.IO;
 
 namespace SonicSharp
 {
     public static class Level
     {
-        public static List<Texture2D> tilesets = new List<Texture2D>();
+        public static List<Tileset> tilesets = new List<Tileset>();
         public static List<Tile> tiles = new List<Tile>();
 
-        public static void Load()
+        public static void Load(string leveldir, string filename)
         {
-            //TODO: Add code to load level
+            string fullname = Main.startdir + "\\Levels\\" + leveldir + "\\" + filename;
+            if (File.Exists(fullname))
+            {
+                //Load the map using NTiled
+                XDocument document = XDocument.Load(fullname);
+                TiledMap map = new TiledReader().Read(document);
+
+                //Tilesets
+                foreach (TiledTileset tileset in map.Tilesets)
+                {
+                    if (tileset.Image != null && File.Exists(Main.startdir + "\\Levels\\" + leveldir + "\\" + tileset.Image.Source))
+                    {
+                        Program.game.Content.RootDirectory = "Levels";
+                        Tileset ts = new Tileset(Program.game.Content.Load<Texture2D>(leveldir + "\\" + new FileInfo(tileset.Image.Source).Name));
+
+                        //Generate all the tile rectangles within the tileset.
+                        int i = 0;
+                        for (int y = 0; y < tileset.Image.Height; y+=16)
+                        {
+                            for (int x = 0; x < tileset.Image.Width; x+=16)
+                            {
+                                ts.tilesetparts.Add(new Rectangle(x,y,16,16));
+                                foreach (TiledTile tile in tileset.Tiles) { if (tile.Id == i && tile.Properties.Count > 0) { ts.tileproperties.Add(tile.Properties); Console.WriteLine(tile.Properties["wm"]); } }
+                                i++;
+                            }
+                        }
+
+                        tilesets.Add(ts);
+                    }
+                }
+
+                //Layers
+                foreach (TiledLayer layer in map.Layers)
+                {
+                    TiledTileLayer tlayer = layer as TiledTileLayer;
+
+                    if (tlayer != null)
+                    {
+                        int i = 0, tilesetid = 0;
+                        for (int y = 0; y < layer.Height * 16; y += 16)
+                        {
+                            for (int x = 0; x < layer.Width * 16; x += 16)
+                            {
+                                if (tlayer.Tiles[i] != 0)
+                                {
+                                    //TODO: Find the correct tileset for each tile.
+                                    //OLD CODE:
+
+                                    //if (!tilesets[tilesetid].tilesetparts.Count > !tilesets[tilesetid].tileids.Contains(tlayer.Tiles[i]))
+                                    //{
+                                    //    Console.WriteLine(tlayer.Tiles[i]);
+                                    //    //tilesetid = -1;
+                                    //    for (int tsi = 0; tsi < tilesets.Count; tsi++)
+                                    //    {
+                                    //        if (tilesets[tsi].tileids.Contains(tlayer.Tiles[i])) { tilesetid = tsi; break; }
+                                    //    }
+                                    //}
+                                    //else { Console.WriteLine(tlayer.Tiles[i]); }
+
+                                    //Spawn all the tiles
+                                    if (tilesetid != -1)
+                                    {
+                                        tiles.Add(new Tile(tilesetid, tilesets[tilesetid].tilesetparts[tlayer.Tiles[i] - 1], new Vector2(x, y)));
+                                    }
+                                }
+                                i++;
+                            }
+                        }
+                    }
+                }
+
+                //TODO: Load player start positions
+
+                for (int i = 0; i < Main.players.Count; i++)
+                {
+                    Main.players[i].active = true;
+                }
+
+                Camera.pos.X = (304*16)*2; Camera.pos.Y = (55 * 16) * 2; //TODO: Remove this temporary line.
+                Program.game.Content.RootDirectory = "Content";
+            }
+            else
+            {
+                MessageBox.Show("ERROR: The given level (\"" + filename + "\") does not exist!","SoniC#",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
+        }
+
+        public static void UnLoad()
+        {
+            //De-activate all the players
             for (int i = 0; i < Main.players.Count; i++)
             {
-                Main.players[i].active = true;
+                Main.players[i].active = false;
             }
         }
 
@@ -30,11 +124,13 @@ namespace SonicSharp
 
         public static void Draw()
         {
+            //Draw the tiles...
             for (int i = 0; i < tiles.Count; i++)
             {
                 tiles[i].Draw();
             }
 
+            //Then the players.
             for (int i = 0; i < Main.players.Count; i++)
             {
                 Main.players[i].Draw();

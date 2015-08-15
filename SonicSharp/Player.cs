@@ -50,8 +50,15 @@ namespace SonicSharp
         //Constants (Change these to variables if you need to edit their properties after the game has begun.)
         private const float acc = 0.046875f, dec = 0.5f, frc = 0.046875f, top = 6;
 
+        //Player Constructor
         public Player(float x, float y) { pos = new Vector2(x, y); active = false; }
 
+        #region Functions
+        /// <summary>
+        /// Gets the current state of the given control. GREATLY simplifies checking for user input!
+        /// </summary>
+        /// <param name="control">The control to check for.</param>
+        /// <returns>The state of the given control.</returns>
         private ControllerStates GetControlState(Controls control)
         {
             if (controller == Controllers.keyboard)
@@ -116,6 +123,7 @@ namespace SonicSharp
         {
             if (active) { Main.spriteBatch.Draw(texture: sprite.texture, position: pos, sourceRectangle: sprite.frames[sprite.currentframe], effects: (left) ? SpriteEffects.FlipHorizontally : SpriteEffects.None, origin: new Vector2(20, 20)); }
         }
+        #endregion
     }
     #endregion
 }

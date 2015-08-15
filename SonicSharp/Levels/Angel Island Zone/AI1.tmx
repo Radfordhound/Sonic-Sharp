@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="776" height="104" tilewidth="16" tileheight="16" nextobjectid="1">
+ <properties>
+  <property name="Act Index" value="1"/>
+  <property name="Knuckles Player Start" value="5024,1050"/>
+  <property name="Sonic Player Start" value="5024,1050"/>
+  <property name="Tails Player Start" value="5024,1050"/>
+  <property name="Zone Name" value="Angel Island Zone"/>
+ </properties>
+ <tileset firstgid="1" name="AItileset" tilewidth="16" tileheight="16" tilecount="16384">
+  <image source="AI1chunks.png" trans="ff00dc" width="256" height="16384"/>
+  <tile id="6817">
+   <properties>
+    <property name="hm" value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1"/>
+    <property name="wm" value="16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+   </properties>
+  </tile>
+  <tile id="6818">
+   <properties>
+    <property name="hm" value="2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2"/>
+    <property name="wm" value="16,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+   </properties>
+  </tile>
+  <tile id="6819">
+   <properties>
+    <property name="hm" value="3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3"/>
+    <property name="wm" value="16,16,16,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+   </properties>
+  </tile>
+  <tile id="6820">
+   <properties>
+    <property name="hm" value="3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3"/>
+    <property name="wm" value="16,16,16,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+   </properties>
+  </tile>
+  <tile id="6821">
+   <properties>
+    <property name="hm" value="2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2"/>
+    <property name="wm" value="16,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+   </properties>
+  </tile>
+  <tile id="6822">
+   <properties>
+    <property name="hm" value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1"/>
+    <property name="wm" value="16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+   </properties>
+  </tile>
+  <tile id="6825">
+   <properties>
+    <property name="hm" value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1"/>
+    <property name="wm" value="16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+   </properties>
+  </tile>
+  <tile id="6826">
+   <properties>
+    <property name="hm" value="2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2"/>
+    <property name="wm" value="16,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+   </properties>
+  </tile>
+  <tile id="6827">
+   <properties>
+    <property name="hm" value="3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3"/>
+    <property name="wm" value="16,16,16,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+   </properties>
+  </tile>
+  <tile id="6828">
+   <properties>
+    <property name="hm" value="3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3"/>
+    <property name="wm" value="16,16,16,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+   </properties>
+  </tile>
+  <tile id="6829">
+   <properties>
+    <property name="hm" value="2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2"/>
+    <property name="wm" value="16,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+   </properties>
+  </tile>
+  <tile id="6830">
+   <properties>
+    <property name="hm" value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1"/>
+    <property name="wm" value="16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+   </properties>
+  </tile>
+  <tile id="6832">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6833">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6834">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6835">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6836">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6837">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6838">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6839">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6840">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6841">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6842">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6843">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6844">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6845">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6846">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6847">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6848">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6855">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6856">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6863">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6945">
+   <properties>
+    <property name="hm" value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1"/>
+    <property name="wm" value="16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+   </properties>
+  </tile>
+  <tile id="6946">
+   <properties>
+    <property name="hm" value="2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2"/>
+    <property name="wm" value="16,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+   </properties>
+  </tile>
+  <tile id="6947">
+   <properties>
+    <property name="hm" value="3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3"/>
+    <property name="wm" value="16,16,16,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+   </properties>
+  </tile>
+  <tile id="6948">
+   <properties>
+    <property name="hm" value="3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3"/>
+    <property name="wm" value="16,16,16,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+   </properties>
+  </tile>
+  <tile id="6949">
+   <properties>
+    <property name="hm" value="2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2"/>
+    <property name="wm" value="16,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+   </properties>
+  </tile>
+  <tile id="6950">
+   <properties>
+    <property name="hm" value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1"/>
+    <property name="wm" value="16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+   </properties>
+  </tile>
+  <tile id="6960">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6961">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6962">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6963">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6964">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6965">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6966">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6967">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6976">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+  <tile id="6983">
+   <properties>
+    <property name="hm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+    <property name="wm" value="16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Tiles Plane A" width="776" height="104">
+  <data encoding="base64" compression="gzip">
+   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
+  </data>
+ </layer>
+</map>

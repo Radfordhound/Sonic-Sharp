@@ -27,3 +27,10 @@ C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Content\Spr
 C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Content\Sprites\Players\Sonic\idle.png
 C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Content\Sprites\Players\Sonic\running.png
 C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Content\Sprites\Players\Sonic\walking.png
+C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Libraries\NTiled\LICENSE
+C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\SonicSharp.exe.config
+C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\NTiled.dll
+C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\NTiled.xml
+C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Levels\Angel Island Zone\AI1chunks.png
+C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Levels\Angel Island Zone\AI1.tmx
+C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\ICSharpCode.SharpZipLib.dll

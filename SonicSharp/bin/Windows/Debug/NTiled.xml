@@ -1,0 +1,460 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NTiled</name>
+    </assembly>
+    <members>
+        <member name="T:NTiled.TiledRectangleObject">
+            <summary>
+            Represenents a rectangle object.
+            </summary>
+        </member>
+        <member name="T:NTiled.TiledObject">
+            <summary>
+            Represents an object in an object group.
+            </summary>
+        </member>
+        <member name="T:NTiled.IHasProperties">
+            <summary>
+            Marker interface for classes having a property collection.
+            </summary>
+        </member>
+        <member name="P:NTiled.IHasProperties.Properties">
+            <summary>
+            Gets the properties.
+            </summary>
+            <value>The properties.</value>
+        </member>
+        <member name="M:NTiled.TiledObject.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NTiled.TiledObject"/> class.
+            </summary>
+        </member>
+        <member name="P:NTiled.TiledObject.Name">
+            <summary>
+            Gets or sets the name of the object.
+            </summary>
+            <value>The name of the object.</value>
+        </member>
+        <member name="P:NTiled.TiledObject.Type">
+            <summary>
+            Gets or sets the type of the object.
+            </summary>
+            <value>The type of the object.</value>
+        </member>
+        <member name="P:NTiled.TiledObject.X">
+            <summary>
+            Gets or sets the x coordinate of the object in pixels.
+            </summary>
+            <value>The x coordinate of the object in pixels.</value>
+        </member>
+        <member name="P:NTiled.TiledObject.Y">
+            <summary>
+            Gets or sets the y coordinate of the object in pixels.
+            </summary>
+            <value>The y coordinate of the object in pixels.</value>
+        </member>
+        <member name="P:NTiled.TiledObject.Width">
+            <summary>
+            Gets or sets the width of the object in pixels.
+            </summary>
+            <value>The width of the object in pixels.</value>
+        </member>
+        <member name="P:NTiled.TiledObject.Height">
+            <summary>
+            Gets or sets the height of the object in pixels.
+            </summary>
+            <value>The height of the object in pixels.</value>
+        </member>
+        <member name="P:NTiled.TiledObject.Properties">
+            <summary>
+            Gets the object properties.
+            </summary>
+            <value>
+            The object properties.
+            </value>
+        </member>
+        <member name="T:NTiled.TiledTileObject">
+            <summary>
+            Represents a tile object.
+            </summary>
+        </member>
+        <member name="P:NTiled.TiledTileObject.Tile">
+            <summary>
+            Gets or sets an reference to a tile.
+            </summary>
+            <value>An reference to a tile.</value>
+        </member>
+        <member name="T:NTiled.TiledLayer">
+            <summary>
+            Represents a layer.
+            </summary>
+        </member>
+        <member name="M:NTiled.TiledLayer.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NTiled.TiledLayer"/> class.
+            </summary>
+        </member>
+        <member name="P:NTiled.TiledLayer.Name">
+            <summary>
+            Gets or sets the name of the layer.
+            </summary>
+            <value>The name of the layer.</value>
+        </member>
+        <member name="P:NTiled.TiledLayer.X">
+            <summary>
+            Gets or sets the horizontal offset of the layer in tiles.
+            </summary>
+            <value>The horizontal offset of the layer in tiles.</value>
+        </member>
+        <member name="P:NTiled.TiledLayer.Y">
+            <summary>
+            Gets or sets the vertical offset of the layer in tiles.
+            </summary>
+            <value>The vertical offset of the layer in tiles.</value>
+        </member>
+        <member name="P:NTiled.TiledLayer.Width">
+            <summary>
+            Gets or sets the width of the layer in tiles.
+            </summary>
+            <value>The width of the layer in tiles.</value>
+        </member>
+        <member name="P:NTiled.TiledLayer.Height">
+            <summary>
+            Gets or sets the height of the layer in tiles.
+            </summary>
+            <value>The height of the layer in tiles.</value>
+        </member>
+        <member name="P:NTiled.TiledLayer.Opacity">
+            <summary>
+            Gets or sets the opacity of the layer.
+            </summary>
+            <value>The opacity as a value between 0.0 and 1.0.</value>
+        </member>
+        <member name="P:NTiled.TiledLayer.Visible">
+            <summary>
+            Gets or sets a value indicating whether the layer is visible.
+            </summary>
+            <value>
+              <c>true</c> if the layer is visible; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:NTiled.TiledLayer.Properties">
+            <summary>
+            Gets or sets the layer properties.
+            </summary>
+            <value>The layer properties.</value>
+        </member>
+        <member name="T:NTiled.TiledLayerCollection">
+            <summary>
+            Represents a layer collection.
+            </summary>
+        </member>
+        <member name="T:NTiled.TiledObjectGroup">
+            <summary>
+            Represents an object group.
+            </summary>
+        </member>
+        <member name="M:NTiled.TiledObjectGroup.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NTiled.TiledObjectGroup"/> class.
+            </summary>
+        </member>
+        <member name="P:NTiled.TiledObjectGroup.Color">
+            <summary>
+            Gets or sets the color used to display the objects in this group..
+            </summary>
+            <value>
+            The color used to display the objects in this group..
+            </value>
+        </member>
+        <member name="P:NTiled.TiledObjectGroup.Objects">
+            <summary>
+            Gets the objects in the layer.
+            </summary>
+            <value>
+            The objects in the layer.
+            </value>
+        </member>
+        <member name="T:NTiled.TiledTile">
+            <summary>
+            Represents a tile.
+            </summary>
+        </member>
+        <member name="M:NTiled.TiledTile.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NTiled.TiledTile"/> class.
+            </summary>
+        </member>
+        <member name="P:NTiled.TiledTile.Id">
+            <summary>
+            Gets or sets the tileset index.
+            </summary>
+            <value>The tileset index.</value>
+        </member>
+        <member name="P:NTiled.TiledTile.Properties">
+            <summary>
+            Gets or sets the properties.
+            </summary>
+            <value>The properties.</value>
+        </member>
+        <member name="T:NTiled.TiledTileCollection">
+            <summary>
+            Represent a collection of tiles.
+            </summary>
+        </member>
+        <member name="T:NTiled.TiledTileLayer">
+            <summary>
+            Represents a tile layer.
+            </summary>
+        </member>
+        <member name="M:NTiled.TiledTileLayer.SetTileData(System.Int32[])">
+            <summary>
+            Sets the tiles in the layer.
+            </summary>
+            <param name="tiles">The tiles in the layer.</param>
+        </member>
+        <member name="P:NTiled.TiledTileLayer.Tiles">
+            <summary>
+            Gets the tiles in the layer.
+            </summary>
+            <value>
+            The tiles in the layer.
+            </value>
+        </member>
+        <member name="T:NTiled.TiledException">
+            <summary>
+            Represents errors that occur within the NTiled library.
+            </summary>
+        </member>
+        <member name="M:NTiled.TiledException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NTiled.TiledException"/> class.
+            </summary>
+        </member>
+        <member name="M:NTiled.TiledException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NTiled.TiledException"/> class.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:NTiled.TiledException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NTiled.TiledException"/> class.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        </member>
+        <member name="M:NTiled.TiledException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Prevents a default instance of the <see cref="T:NTiled.TiledException"/> class from being created.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="T:NTiled.TiledMap">
+            <summary>
+            Representation of a Tiled map.
+            </summary>
+        </member>
+        <member name="M:NTiled.TiledMap.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NTiled.TiledMap"/> class.
+            </summary>
+        </member>
+        <member name="P:NTiled.TiledMap.Version">
+            <summary>
+            Gets or sets the map version.
+            </summary>
+            <value>The map version.</value>
+        </member>
+        <member name="P:NTiled.TiledMap.Orientation">
+            <summary>
+            Gets or sets the map orientation.
+            </summary>
+            <value>The map orientation.</value>
+        </member>
+        <member name="P:NTiled.TiledMap.Width">
+            <summary>
+            Gets or sets the map width in tiles.
+            </summary>
+            <value>The map width in tiles.</value>
+        </member>
+        <member name="P:NTiled.TiledMap.Height">
+            <summary>
+            Gets or sets the map height in tiles.
+            </summary>
+            <value>The map height in tiles.</value>
+        </member>
+        <member name="P:NTiled.TiledMap.TileWidth">
+            <summary>
+            Gets or sets the tile width in pixels.
+            </summary>
+            <value>The tile width in pixels.</value>
+        </member>
+        <member name="P:NTiled.TiledMap.TileHeight">
+            <summary>
+            Gets or sets the tile height in pixels.
+            </summary>
+            <value>The tile height in pixels.</value>
+        </member>
+        <member name="P:NTiled.TiledMap.BackgroundColor">
+            <summary>
+            Gets or sets the color of the background.
+            </summary>
+            <value>The color of the background.</value>
+        </member>
+        <member name="P:NTiled.TiledMap.Properties">
+            <summary>
+            Gets or sets the map properties.
+            </summary>
+            <value>The map properties.</value>
+        </member>
+        <member name="P:NTiled.TiledMap.Tilesets">
+            <summary>
+            Gets or sets the tilesets.
+            </summary>
+            <value>The tilesets.</value>
+        </member>
+        <member name="P:NTiled.TiledMap.Layers">
+            <summary>
+            Gets or sets the layers.
+            </summary>
+            <value>The layers.</value>
+        </member>
+        <member name="T:NTiled.TiledPropertyCollection">
+            <summary>
+            Represents a property collection.
+            </summary>
+        </member>
+        <member name="M:NTiled.TiledPropertyCollection.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NTiled.TiledPropertyCollection"/> class.
+            </summary>
+        </member>
+        <member name="M:NTiled.TiledPropertyCollection.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Prevents a default instance of the <see cref="T:NTiled.TiledPropertyCollection"/> class from being created.
+            </summary>
+            <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo"/> object containing the information required to serialize the <see cref="T:System.Collections.Generic.Dictionary`2"/>.</param>
+            <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext"/> structure containing the source and destination of the serialized stream associated with the <see cref="T:System.Collections.Generic.Dictionary`2"/>.</param>
+        </member>
+        <member name="T:NTiled.TiledReader">
+            <summary>
+            Class for reading Tiled maps.
+            </summary>
+        </member>
+        <member name="M:NTiled.TiledReader.Read(System.Xml.Linq.XDocument)">
+            <summary>
+            Parses the specified map.
+            </summary>
+            <param name="document">The map.</param>
+            <returns></returns>
+        </member>
+        <member name="M:NTiled.TiledReader.Read(System.String)">
+            <summary>
+            Parses the specified map.
+            </summary>
+            <param name="filename">The filename of the external tile set.</param>
+            <returns></returns>
+        </member>
+        <member name="T:NTiled.TiledTileset">
+            <summary>
+            Represents a tileset.
+            </summary>
+        </member>
+        <member name="M:NTiled.TiledTileset.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NTiled.TiledTileset"/> class.
+            </summary>
+        </member>
+        <member name="P:NTiled.TiledTileset.FirstId">
+            <summary>
+            Gets or sets the first tile index in the tileset.
+            </summary>
+            <value>The first tile index in the tileset.</value>
+        </member>
+        <member name="P:NTiled.TiledTileset.Name">
+            <summary>
+            Gets or sets the name of the tileset.
+            </summary>
+            <value>The name of the tileset.</value>
+        </member>
+        <member name="P:NTiled.TiledTileset.TileWidth">
+            <summary>
+            Gets or sets the tile width in pixels.
+            </summary>
+            <value>The tile width in pixels.</value>
+        </member>
+        <member name="P:NTiled.TiledTileset.TileHeight">
+            <summary>
+            Gets or sets the tile height in pixels.
+            </summary>
+            <value>The tile height in pixels.</value>
+        </member>
+        <member name="P:NTiled.TiledTileset.Spacing">
+            <summary>
+            Gets or sets the spacing.
+            </summary>
+            <value>The spacing.</value>
+        </member>
+        <member name="P:NTiled.TiledTileset.Margin">
+            <summary>
+            Gets or sets the margin.
+            </summary>
+            <value>The margin.</value>
+        </member>
+        <member name="P:NTiled.TiledTileset.OffsetX">
+            <summary>
+            Gets or sets the horizontal offset in tiles.
+            </summary>
+            <value>The horizontal offset in tiles.</value>
+        </member>
+        <member name="P:NTiled.TiledTileset.OffsetY">
+            <summary>
+            Gets or sets the vertical offset in tiles.
+            </summary>
+            <value>The vertical offset in tiles.</value>
+        </member>
+        <member name="P:NTiled.TiledTileset.Image">
+            <summary>
+            Gets or sets the tileset image.
+            </summary>
+            <value>The tileset image.</value>
+        </member>
+        <member name="P:NTiled.TiledTileset.Tiles">
+            <summary>
+            Gets the tiles.
+            </summary>
+            <value>The tiles.</value>
+        </member>
+        <member name="T:NTiled.TiledTilesetCollection">
+            <summary>
+            Represents a collection of tilesets.
+            </summary>
+        </member>
+        <member name="T:NTiled.TiledImage">
+            <summary>
+            Represents an image.
+            </summary>
+        </member>
+        <member name="P:NTiled.TiledImage.Source">
+            <summary>
+            Gets or sets the source.
+            </summary>
+            <value>The source.</value>
+        </member>
+        <member name="P:NTiled.TiledImage.Width">
+            <summary>
+            Gets or sets the width of the image.
+            </summary>
+            <value>The width in pixels. </value>
+        </member>
+        <member name="P:NTiled.TiledImage.Height">
+            <summary>
+            Gets or sets the height of the image.
+            </summary>
+            <value>The height in pixels.</value>
+        </member>
+    </members>
+</doc>

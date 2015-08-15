@@ -1,8 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace SonicSharp
 {
+    public class Tileset
+    {
+        public Texture2D texture;
+        public List<Dictionary<string, string>> tileproperties = new List<Dictionary<string, string>>();
+        public List<Rectangle> tilesetparts = new List<Rectangle>();
+
+        public Tileset(Texture2D texture) { this.texture = texture; }
+    }
+
     public class Tile
     {
         public int textureid;
@@ -13,7 +23,7 @@ namespace SonicSharp
 
         public void Draw()
         {
-            Main.spriteBatch.Draw(texture: Level.tilesets[textureid], position: pos, sourceRectangle: tilesetsection);
+            Main.spriteBatch.Draw(texture: Level.tilesets[textureid].texture, position: pos, sourceRectangle: tilesetsection);
         }
     }
 }

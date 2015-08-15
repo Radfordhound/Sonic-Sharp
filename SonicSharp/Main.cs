@@ -2,7 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
+using System.Reflection; //Let's take some time to reflect...
 
 namespace SonicSharp
 {
@@ -27,7 +29,7 @@ namespace SonicSharp
         public static GameState gamestate = GameState.loading;
         public static KeyboardState kbst, prevkbst; //TODO: Add controller support
         public static List<Player> players = new List<Player>();
-        public static string versionstring = "DEV 1.2";
+        public static string versionstring = "DEV 2.0", startdir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public enum GameState { loading, inlevel }
 
@@ -71,7 +73,7 @@ namespace SonicSharp
         private void LoadContentAsync()
         {
             players.Add(new Sonic(20,20)); //TODO: Remove this temporary line!
-            Level.Load(); //TODO: Remove this temporary line!
+            Level.Load("Angel Island Zone","AI1.tmx"); //TODO: Remove this temporary line!
             gamestate = GameState.inlevel;
         }
 
@@ -81,7 +83,7 @@ namespace SonicSharp
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+            Content.Unload();
         }
 
         /// <summary>
@@ -129,6 +131,7 @@ namespace SonicSharp
             else if (gamestate == GameState.inlevel)
             {
                 Level.Draw();
+                font.Draw("CAMERA POSITION: " + Camera.pos.X.ToString() + " : " + Camera.pos.Y.ToString(),Camera.pos.X/scalemodifier,Camera.pos.Y/scalemodifier);
             }
 
             virtualscreenwidth = Window.ClientBounds.Width;
