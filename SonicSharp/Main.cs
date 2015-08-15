@@ -27,9 +27,10 @@ namespace SonicSharp
 
         //Other variables
         public static GameState gamestate = GameState.loading;
-        public static KeyboardState kbst, prevkbst; //TODO: Add controller support
+        public static KeyboardState kbst, prevkbst;
+        public static GamePadState[] gpsts = new GamePadState[4], prevgpsts = new GamePadState[4];
         public static List<Player> players = new List<Player>();
-        public static string versionstring = "DEV 2.1", startdir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        public static string versionstring = "DEV 2.2", startdir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public enum GameState { loading, inlevel }
 
@@ -72,7 +73,7 @@ namespace SonicSharp
         /// </summary>
         private void LoadContentAsync()
         {
-            players.Add(new Sonic(20,20)); //TODO: Remove this temporary line!
+            players.Add(new Sonic(20,20,Player.Controllers.keyboard)); //TODO: Remove this temporary line!
             Level.Load("Angel Island Zone","AI1.tmx"); //TODO: Remove this temporary line!
             gamestate = GameState.inlevel;
         }
@@ -94,7 +95,10 @@ namespace SonicSharp
         protected override void Update(GameTime gameTime)
         {
             kbst = Keyboard.GetState();
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || kbst.IsKeyDown(Keys.Escape)) Exit(); //TODO: Remove this line
+            gpsts[0] = GamePad.GetState(PlayerIndex.One); gpsts[1] = GamePad.GetState(PlayerIndex.Two);
+            gpsts[2] = GamePad.GetState(PlayerIndex.Three); gpsts[3] = GamePad.GetState(PlayerIndex.Four);
+
+            if (gpsts[0].Buttons.Back == ButtonState.Pressed || kbst.IsKeyDown(Keys.Escape)) Exit(); //TODO: Remove this line
 
             if (gamestate == GameState.inlevel)
             {
@@ -112,6 +116,7 @@ namespace SonicSharp
             }
 
             prevkbst = kbst;
+            prevgpsts = gpsts;
             base.Update(gameTime);
         }
 

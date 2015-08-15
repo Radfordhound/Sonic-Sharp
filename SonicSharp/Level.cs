@@ -40,7 +40,7 @@ namespace SonicSharp
                             for (int x = 0; x < tileset.Image.Width; x+=16)
                             {
                                 ts.tilesetparts.Add(new Rectangle(x,y,16,16));
-                                foreach (TiledTile tile in tileset.Tiles) { if (tile.Id == i && tile.Properties.Count > 0) { ts.tileproperties.Add(tile.Properties); Console.WriteLine(tile.Properties["wm"]); } }
+                                foreach (TiledTile tile in tileset.Tiles) { if (tile.Id == i && tile.Properties.Count > 0) { ts.tileproperties.Add(tile.Properties);} }
                                 i++;
                             }
                         }

@@ -11,7 +11,7 @@ namespace SonicSharp
     #region Player Types
     public class Sonic : Player
     {
-        public Sonic(float x, float y) : base (x,y)
+        public Sonic(float x, float y, Controllers controller) : base (x,y,controller)
         {
             idlesprite = new Sprite(Program.game.Content.Load<Texture2D>("Sprites\\Players\\Sonic\\idle"), new Rectangle[]
             {
@@ -35,7 +35,7 @@ namespace SonicSharp
 
     public class Tails : Player
     {
-        public Tails(float x, float y) : base (x,y)
+        public Tails(float x, float y, Controllers controller) : base (x,y,controller)
         {
             //TODO: Dis. :P
         }
@@ -43,7 +43,7 @@ namespace SonicSharp
 
     public class Knuckles : Player
     {
-        public Knuckles(float x, float y) : base(x, y)
+        public Knuckles(float x, float y, Controllers controller) : base(x,y,controller)
         {
             //TODO: Dis. :P
         }
@@ -59,15 +59,15 @@ namespace SonicSharp
         private float xsp = 0, ysp = 0;
         private bool left = false;
 
-        private enum Controls { left, right }
-        private enum Controllers { keyboard, gamepad1, gamepad2, gamepad3, gamepad4 }
+        public enum Controllers { keyboard, gamepad1, gamepad2, gamepad3, gamepad4 }
         private enum ControllerStates { justpressed, isdown, justreleased, notbeingused }
+        private enum Controls { left, right }
 
         //Constants (Change these to variables if you need to edit their properties after the game has begun.)
         private const float acc = 0.046875f, dec = 0.5f, frc = 0.046875f, top = 6;
 
         //Player Constructor
-        public Player(float x, float y) { pos = new Vector2(x, y); active = false; }
+        public Player(float x, float y, Controllers controller) { pos = new Vector2(x, y); this.controller = controller; active = false; }
 
         #region Functions
         /// <summary>
@@ -88,8 +88,51 @@ namespace SonicSharp
                     return (Main.kbst.IsKeyDown(Keys.Right) || Main.kbst.IsKeyDown(Keys.D)) ? ((!Main.prevkbst.IsKeyDown(Keys.Right) || !Main.prevkbst.IsKeyDown(Keys.D)) ? ControllerStates.justpressed:ControllerStates.isdown) : (Main.prevkbst.IsKeyDown(Keys.Right) || Main.prevkbst.IsKeyDown(Keys.D)) ?ControllerStates.justreleased:ControllerStates.notbeingused;
                 }
             }
-            //TODO: Controller Input
-            
+            else if (controller == Controllers.gamepad1)
+            {
+                if (control == Controls.left)
+                {
+                    return (Main.gpsts[0].ThumbSticks.Left.X < 0 || Main.gpsts[0].DPad.Left == ButtonState.Pressed) ? ((Main.prevgpsts[0].ThumbSticks.Left.X > 0 || Main.gpsts[0].DPad.Left != ButtonState.Pressed) ? ControllerStates.justpressed:ControllerStates.isdown) : (Main.prevgpsts[0].ThumbSticks.Left.X < 0 || Main.prevgpsts[0].DPad.Left == ButtonState.Pressed) ? ControllerStates.justpressed:ControllerStates.notbeingused;
+                }
+                else if (control == Controls.right)
+                {
+                    return (Main.gpsts[0].ThumbSticks.Left.X > 0 || Main.gpsts[0].DPad.Right == ButtonState.Pressed) ? ((Main.prevgpsts[0].ThumbSticks.Left.X < 0 || Main.gpsts[0].DPad.Right != ButtonState.Pressed) ? ControllerStates.justpressed : ControllerStates.isdown) : (Main.prevgpsts[0].ThumbSticks.Left.X > 0 || Main.prevgpsts[0].DPad.Right == ButtonState.Pressed) ? ControllerStates.justpressed : ControllerStates.notbeingused;
+                }
+            }
+            else if (controller == Controllers.gamepad2)
+            {
+                if (control == Controls.left)
+                {
+                    return (Main.gpsts[1].ThumbSticks.Left.X < 0 || Main.gpsts[1].DPad.Left == ButtonState.Pressed) ? ((Main.prevgpsts[1].ThumbSticks.Left.X > 0 || Main.gpsts[1].DPad.Left != ButtonState.Pressed) ? ControllerStates.justpressed : ControllerStates.isdown) : (Main.prevgpsts[1].ThumbSticks.Left.X < 0 || Main.prevgpsts[1].DPad.Left == ButtonState.Pressed) ? ControllerStates.justpressed : ControllerStates.notbeingused;
+                }
+                else if (control == Controls.right)
+                {
+                    return (Main.gpsts[1].ThumbSticks.Left.X > 0 || Main.gpsts[1].DPad.Right == ButtonState.Pressed) ? ((Main.prevgpsts[1].ThumbSticks.Left.X < 0 || Main.gpsts[1].DPad.Right != ButtonState.Pressed) ? ControllerStates.justpressed : ControllerStates.isdown) : (Main.prevgpsts[1].ThumbSticks.Left.X > 0 || Main.prevgpsts[1].DPad.Right == ButtonState.Pressed) ? ControllerStates.justpressed : ControllerStates.notbeingused;
+                }
+            }
+            else if (controller == Controllers.gamepad3)
+            {
+                if (control == Controls.left)
+                {
+                    return (Main.gpsts[2].ThumbSticks.Left.X < 0 || Main.gpsts[2].DPad.Left == ButtonState.Pressed) ? ((Main.prevgpsts[2].ThumbSticks.Left.X > 0 || Main.gpsts[2].DPad.Left != ButtonState.Pressed) ? ControllerStates.justpressed : ControllerStates.isdown) : (Main.prevgpsts[2].ThumbSticks.Left.X < 0 || Main.prevgpsts[2].DPad.Left == ButtonState.Pressed) ? ControllerStates.justpressed : ControllerStates.notbeingused;
+                }
+                else if (control == Controls.right)
+                {
+                    return (Main.gpsts[2].ThumbSticks.Left.X > 0 || Main.gpsts[2].DPad.Right == ButtonState.Pressed) ? ((Main.prevgpsts[2].ThumbSticks.Left.X < 0 || Main.gpsts[2].DPad.Right != ButtonState.Pressed) ? ControllerStates.justpressed : ControllerStates.isdown) : (Main.prevgpsts[2].ThumbSticks.Left.X > 0 || Main.prevgpsts[2].DPad.Right == ButtonState.Pressed) ? ControllerStates.justpressed : ControllerStates.notbeingused;
+                }
+            }
+            else if (controller == Controllers.gamepad4)
+            {
+                if (control == Controls.left)
+                {
+                    return (Main.gpsts[3].ThumbSticks.Left.X < 0 || Main.gpsts[3].DPad.Left == ButtonState.Pressed) ? ((Main.prevgpsts[3].ThumbSticks.Left.X > 0 || Main.gpsts[3].DPad.Left != ButtonState.Pressed) ? ControllerStates.justpressed : ControllerStates.isdown) : (Main.prevgpsts[3].ThumbSticks.Left.X < 0 || Main.prevgpsts[3].DPad.Left == ButtonState.Pressed) ? ControllerStates.justpressed : ControllerStates.notbeingused;
+                }
+                else if (control == Controls.right)
+                {
+                    return (Main.gpsts[3].ThumbSticks.Left.X > 0 || Main.gpsts[3].DPad.Right == ButtonState.Pressed) ? ((Main.prevgpsts[3].ThumbSticks.Left.X < 0 || Main.gpsts[3].DPad.Right != ButtonState.Pressed) ? ControllerStates.justpressed : ControllerStates.isdown) : (Main.prevgpsts[3].ThumbSticks.Left.X > 0 || Main.prevgpsts[3].DPad.Right == ButtonState.Pressed) ? ControllerStates.justpressed : ControllerStates.notbeingused;
+                }
+            }
+
             return ControllerStates.notbeingused;
         }
 
