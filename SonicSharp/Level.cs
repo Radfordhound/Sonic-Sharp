@@ -15,6 +15,7 @@ namespace SonicSharp
     {
         public static List<Tileset> tilesets = new List<Tileset>();
         public static List<Tile> tiles = new List<Tile>();
+        public static int onscreentilecount = 0;
 
         public static void Load(string leveldir, string filename)
         {
@@ -135,10 +136,16 @@ namespace SonicSharp
 
         public static void Draw()
         {
+            if (Main.debugmode) { onscreentilecount = 0; }
+
             //Draw the tiles...
             for (int i = 0; i < tiles.Count; i++)
             {
-                tiles[i].Draw();
+                if (tiles[i].pos.X + 32 >= Camera.pos.X / Main.scalemodifier && tiles[i].pos.X - 32 <= Camera.pos.X/Main.scalemodifier + Program.game.Window.ClientBounds.Width / Main.scalemodifier && tiles[i].pos.Y + 32 >= Camera.pos.Y / Main.scalemodifier && tiles[i].pos.Y - 32 <= Camera.pos.Y / Main.scalemodifier + Program.game.Window.ClientBounds.Height / Main.scalemodifier)
+                {
+                    tiles[i].Draw();
+                    if (Main.debugmode) { onscreentilecount++; }
+                }
             }
 
             //Then the players.

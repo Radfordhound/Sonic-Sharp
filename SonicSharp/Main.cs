@@ -19,7 +19,7 @@ namespace SonicSharp
         public static Font font;
         public static Color bgcolor = Color.Black;
         public static int scalemodifier = 2;
-        public static bool fullscreen = false;
+        public static bool fullscreen = false, debugmode = true;
         
         private int virtualscreenwidth = 800, virtualscreenheight = 600;
         private Point windowstartpos;
@@ -30,7 +30,7 @@ namespace SonicSharp
         public static KeyboardState kbst, prevkbst;
         public static GamePadState[] gpsts = new GamePadState[4], prevgpsts = new GamePadState[4];
         public static List<Player> players = new List<Player>();
-        public static string versionstring = "DEV 2.2", startdir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        public static string versionstring = "DEV 2.3", startdir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public enum GameState { loading, inlevel }
 
@@ -105,6 +105,7 @@ namespace SonicSharp
                 Level.Update();
             }
 
+            if (kbst.IsKeyDown(Keys.F1) && !prevkbst.IsKeyDown(Keys.F1)) { debugmode = !debugmode; }
             if (kbst.IsKeyDown(Keys.F11) && !prevkbst.IsKeyDown(Keys.F11))
             {
                 fullscreen = !fullscreen;
@@ -136,7 +137,13 @@ namespace SonicSharp
             else if (gamestate == GameState.inlevel)
             {
                 Level.Draw();
-                font.Draw("CAMERA POSITION: " + Camera.pos.X.ToString() + " : " + Camera.pos.Y.ToString(),Camera.pos.X/scalemodifier,Camera.pos.Y/scalemodifier);
+
+                if (debugmode)
+                {
+                    font.Draw("SONICSHARP VERSION " + versionstring, Camera.pos.X/scalemodifier,Camera.pos.Y/scalemodifier);
+                    font.Draw("CAMERA POSITION: " + Camera.pos.X.ToString() + " : " + Camera.pos.Y.ToString(), Camera.pos.X/scalemodifier, (Camera.pos.Y+30)/scalemodifier);
+                    font.Draw("TILES ONSCREEN: " + Level.onscreentilecount,Camera.pos.X/scalemodifier,(Camera.pos.Y+60)/scalemodifier);
+                }
             }
 
             virtualscreenwidth = Window.ClientBounds.Width;
