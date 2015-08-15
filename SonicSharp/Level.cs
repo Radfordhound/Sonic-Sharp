@@ -89,11 +89,22 @@ namespace SonicSharp
                     }
                 }
 
-                //TODO: Load player start positions
-
-                for (int i = 0; i < Main.players.Count; i++)
+                foreach (Player plr in Main.players)
                 {
-                    Main.players[i].active = true;
+                    if (plr.GetType() == typeof(Sonic) && map.Properties["Sonic Player Start"] != null)
+                    {
+                        plr.pos = new Vector2(Convert.ToSingle(map.Properties["Sonic Player Start"].Split(',')[0]), Convert.ToSingle(map.Properties["Sonic Player Start"].Split(',')[1]));
+                    }
+                    else if (plr.GetType() == typeof(Tails) && map.Properties["Tails Player Start"] != null)
+                    {
+                        plr.pos = new Vector2(Convert.ToSingle(map.Properties["Tails Player Start"].Split(',')[0]), Convert.ToSingle(map.Properties["Tails Player Start"].Split(',')[1]));
+                    }
+                    else if (plr.GetType() == typeof(Knuckles) && map.Properties["Knuckles Player Start"] != null)
+                    {
+                        plr.pos = new Vector2(Convert.ToSingle(map.Properties["Knuckles Player Start"].Split(',')[0]), Convert.ToSingle(map.Properties["Knuckles Player Start"].Split(',')[1]));
+                    }
+
+                    plr.active = true;
                 }
 
                 Camera.pos.X = (304*16)*2; Camera.pos.Y = (55 * 16) * 2; //TODO: Remove this temporary line.

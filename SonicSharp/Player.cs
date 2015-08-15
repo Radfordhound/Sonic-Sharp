@@ -32,6 +32,22 @@ namespace SonicSharp
             sprite = idlesprite;
         }
     }
+
+    public class Tails : Player
+    {
+        public Tails(float x, float y) : base (x,y)
+        {
+            //TODO: Dis. :P
+        }
+    }
+
+    public class Knuckles : Player
+    {
+        public Knuckles(float x, float y) : base(x, y)
+        {
+            //TODO: Dis. :P
+        }
+    }
     #endregion
 
     #region The actual Player class (HEAVILY based off of the awesome Sonic Physics Guide from the even awesome-er Sonic Retro Wiki! http://info.sonicretro.org/Sonic_Physics_Guide)
