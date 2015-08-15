@@ -30,7 +30,7 @@ namespace SonicSharp
         public static KeyboardState kbst, prevkbst;
         public static GamePadState[] gpsts = new GamePadState[4], prevgpsts = new GamePadState[4];
         public static List<Player> players = new List<Player>();
-        public static string versionstring = "DEV 2.3", startdir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        public static string versionstring = "DEV 3.0", startdir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public enum GameState { loading, inlevel }
 
@@ -84,7 +84,7 @@ namespace SonicSharp
         /// </summary>
         protected override void UnloadContent()
         {
-            Content.Unload();
+            Content.Unload(); //Cuz' we're simple like that. ;)
         }
 
         /// <summary>

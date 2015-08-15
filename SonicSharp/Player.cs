@@ -56,7 +56,7 @@ namespace SonicSharp
         //Variables
         public Sprite idlesprite, walkingsprite, runningsprite;
         private Controllers controller = Controllers.keyboard;
-        private float xsp = 0, ysp = 0;
+        private float xsp = 0, ysp = 1;
         private bool left = false;
 
         public enum Controllers { keyboard, gamepad1, gamepad2, gamepad3, gamepad4 }
@@ -168,6 +168,53 @@ namespace SonicSharp
 
                 pos.X += xsp;
                 pos.Y += ysp;
+
+                ysp = 1;
+
+                //Collision
+                foreach (Tile tile in Level.tiles)
+                {
+                    if (Level.tilesets.Count > tile.textureid && Level.tilesets[tile.textureid].tileproperties.Count > tile.tileid && Level.tilesets[tile.textureid].tileproperties[tile.tileid] != null && Level.tilesets[tile.textureid].tileproperties[tile.tileid].ContainsKey("hm"))
+                    {
+                        //Horizontal Collision
+                        for (int x = (int)pos.X - 11; x <= pos.X + 11; x++)
+                        {
+                            if (tile.pos.X <= x && tile.pos.X + 16 >= x && tile.pos.Y <= pos.Y+4 && tile.pos.Y + 16 >= pos.Y+4)
+                            {
+                                if (Level.tilesets[tile.textureid].tileproperties[tile.tileid]["hm"].Split(',').Length > ((int)(x - tile.pos.X)) && (tile.pos.Y + 16) - Convert.ToInt32(Level.tilesets[tile.textureid].tileproperties[tile.tileid]["hm"].Split(',')[(int)(x - tile.pos.X)]) <= pos.Y+4)
+                                {
+                                    if (tile.pos.X >= x) { pos.X = tile.pos.X - 11; }
+                                    else { pos.X = tile.pos.X + 27; }
+                                    xsp = 0;
+                                }
+                            }
+                        }
+
+                        //Vertical Collision
+                        for (int y = (int)pos.Y; y < pos.Y + 20; y++)
+                        {
+                            //Sensor A
+                            if (tile.pos.Y <= y && tile.pos.Y + 16 >= y && tile.pos.X <= pos.X - 9 && tile.pos.X + 16 >= pos.X - 9)
+                            {
+                                if (Level.tilesets[tile.textureid].tileproperties[tile.tileid]["hm"].Split(',').Length > ((int)((pos.X - 9) - tile.pos.X)))
+                                {
+                                    pos.Y = ((tile.pos.Y + 16) - (Convert.ToInt32(Level.tilesets[tile.textureid].tileproperties[tile.tileid]["hm"].Split(',')[(int)((pos.X - 9) - tile.pos.X)])) - 20);
+                                }
+                                ysp = 0;
+                            }
+
+                            //Sensor B
+                            if (tile.pos.Y <= y && tile.pos.Y + 16 >= y && tile.pos.X <= pos.X + 9 && tile.pos.X + 16 >= pos.X + 9)
+                            {
+                                if (Level.tilesets[tile.textureid].tileproperties[tile.tileid]["hm"].Split(',').Length > ((int)((pos.X + 9) - tile.pos.X)))
+                                {
+                                    pos.Y = ((tile.pos.Y + 16) - (Convert.ToInt32(Level.tilesets[tile.textureid].tileproperties[tile.tileid]["hm"].Split(',')[(int)((pos.X + 9) - tile.pos.X)])) - 20);
+                                }
+                                ysp = 0;
+                            }
+                        }
+                    }
+                }
 
                 //Animation
                 if (Math.Abs(xsp) >= top) { sprite = runningsprite; }

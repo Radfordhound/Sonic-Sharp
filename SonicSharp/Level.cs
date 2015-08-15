@@ -41,7 +41,7 @@ namespace SonicSharp
                             for (int x = 0; x < tileset.Image.Width; x+=16)
                             {
                                 ts.tilesetparts.Add(new Rectangle(x,y,16,16));
-                                foreach (TiledTile tile in tileset.Tiles) { if (tile.Id == i && tile.Properties.Count > 0) { ts.tileproperties.Add(tile.Properties);} }
+                                AssignProperties(tileset,i,ts);
                                 i++;
                             }
                         }
@@ -81,7 +81,7 @@ namespace SonicSharp
                                     //Spawn all the tiles
                                     if (tilesetid != -1)
                                     {
-                                        tiles.Add(new Tile(tilesetid, tilesets[tilesetid].tilesetparts[tlayer.Tiles[i] - 1], new Vector2(x, y)));
+                                        tiles.Add(new Tile(tilesetid, tlayer.Tiles[i] - 1, tilesets[tilesetid].tilesetparts[tlayer.Tiles[i] - 1], new Vector2(x, y)));
                                     }
                                 }
                                 i++;
@@ -115,6 +115,15 @@ namespace SonicSharp
             {
                 MessageBox.Show("ERROR: The given level (\"" + filename + "\") does not exist!","SoniC#",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
+        }
+
+        private static void AssignProperties(TiledTileset tileset, int i, Tileset ts)
+        {
+            foreach (TiledTile tile in tileset.Tiles)
+            {
+                if (tile.Id == i) { ts.tileproperties.Add((tile.Properties.Count > 0) ? tile.Properties : null); return; }
+            }
+            ts.tileproperties.Add(null);
         }
 
         public static void UnLoad()

@@ -15,11 +15,11 @@ namespace SonicSharp
 
     public class Tile
     {
-        public int textureid;
+        public int textureid, tileid;
         public Rectangle tilesetsection;
         public Vector2 pos = Vector2.Zero;
 
-        public Tile(int textureid, Rectangle tilesetsection, Vector2 pos) { this.textureid = textureid; this.tilesetsection = tilesetsection; this.pos = pos; }
+        public Tile(int textureid, int tileid, Rectangle tilesetsection, Vector2 pos) { this.textureid = textureid; this.tileid = tileid; this.tilesetsection = tilesetsection; this.pos = pos; }
 
         public void Draw()
         {

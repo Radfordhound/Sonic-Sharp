@@ -3,7 +3,7 @@
  <properties>
   <property name="Act Index" value="1"/>
   <property name="Knuckles Player Start" value="5024,1050"/>
-  <property name="Sonic Player Start" value="5024,1050"/>
+  <property name="Sonic Player Start" value="4912,1050"/>
   <property name="Tails Player Start" value="5024,1050"/>
   <property name="Zone Name" value="Angel Island Zone"/>
  </properties>
