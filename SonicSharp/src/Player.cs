@@ -55,8 +55,8 @@ namespace SonicSharp
     {
         //Variables
         public Sprite idlesprite, walkingsprite, runningsprite;
+        public float xsp = 0, ysp = 1;
         private Controllers controller = Controllers.keyboard;
-        private float xsp = 0, ysp = 1;
         private bool left = false;
 
         public enum Controllers { keyboard, gamepad1, gamepad2, gamepad3, gamepad4 }
@@ -64,10 +64,10 @@ namespace SonicSharp
         private enum Controls { left, right }
 
         //Constants (Change these to variables if you need to edit their properties after the game has begun.)
-        private const float acc = 0.046875f, dec = 0.5f, frc = 0.046875f, top = 6;
+        public const float acc = 0.046875f, dec = 0.5f, frc = 0.046875f, top = 6;
 
         //Player Constructor
-        public Player(float x, float y, Controllers controller) { pos = new Vector2(x, y); this.controller = controller; active = false; }
+        public Player(float x, float y, Controllers controller) { pos = new Vector2(x, y); this.controller = controller; active = false; id = Main.players.Count; }
 
         #region Functions
         /// <summary>
@@ -138,6 +138,7 @@ namespace SonicSharp
 
         public override void Update()
         {
+            #region Input/Movement
             if (active)
             {
                 if ((int)GetControlState(Controls.left) < 2)
@@ -170,8 +171,12 @@ namespace SonicSharp
                 pos.Y += ysp;
 
                 ysp = 1;
+                #endregion
 
-                //Collision
+                #region Collision
+                float ay = -1, by = -1;
+
+                //Tile Collision
                 foreach (Tile tile in Level.tiles)
                 {
                     if (Level.tilesets.Count > tile.textureid && Level.tilesets[tile.textureid].tileproperties.Count > tile.tileid && Level.tilesets[tile.textureid].tileproperties[tile.tileid] != null && Level.tilesets[tile.textureid].tileproperties[tile.tileid].ContainsKey("hm"))
@@ -198,7 +203,7 @@ namespace SonicSharp
                             {
                                 if (Level.tilesets[tile.textureid].tileproperties[tile.tileid]["hm"].Split(',').Length > ((int)((pos.X - 9) - tile.pos.X)))
                                 {
-                                    pos.Y = ((tile.pos.Y + 16) - (Convert.ToInt32(Level.tilesets[tile.textureid].tileproperties[tile.tileid]["hm"].Split(',')[(int)((pos.X - 9) - tile.pos.X)])) - 20);
+                                    ay = ((tile.pos.Y + 16) - (Convert.ToInt32(Level.tilesets[tile.textureid].tileproperties[tile.tileid]["hm"].Split(',')[(int)((pos.X - 9) - tile.pos.X)])) - 20);
                                 }
                                 ysp = 0;
                             }
@@ -208,7 +213,7 @@ namespace SonicSharp
                             {
                                 if (Level.tilesets[tile.textureid].tileproperties[tile.tileid]["hm"].Split(',').Length > ((int)((pos.X + 9) - tile.pos.X)))
                                 {
-                                    pos.Y = ((tile.pos.Y + 16) - (Convert.ToInt32(Level.tilesets[tile.textureid].tileproperties[tile.tileid]["hm"].Split(',')[(int)((pos.X + 9) - tile.pos.X)])) - 20);
+                                    by = ((tile.pos.Y + 16) - (Convert.ToInt32(Level.tilesets[tile.textureid].tileproperties[tile.tileid]["hm"].Split(',')[(int)((pos.X + 9) - tile.pos.X)])) - 20);
                                 }
                                 ysp = 0;
                             }
@@ -216,18 +221,65 @@ namespace SonicSharp
                     }
                 }
 
-                //Animation
+                if (ay != -1 && by != -1) { pos.Y = (ay <= by) ? ay : by; }
+                else if (ay != -1) { pos.Y = ay; }
+                else if (by != -1) { pos.Y = by; }
+
+                //Object Collision
+                for (int i = Level.objects.Count-1; i >= 0; i--)
+                {
+                    gameObject obj = Level.objects[i];
+                    //TODO: Add collideable objects.
+
+                    //Horizontal Collision
+                    for (int x = (int)pos.X - 11; x <= pos.X + 11; x++)
+                    {
+                        if (obj.pos.X <= x && obj.pos.X + obj.width >= x && obj.pos.Y <= pos.Y + 4 && obj.pos.Y + obj.height >= pos.Y + 4)
+                        {
+                            obj.PlayerCollision(this);
+                            break;
+                        }
+                    }
+
+                    //Vertical Collision
+                    for (int y = (int)pos.Y; y < pos.Y + 20; y++)
+                    {
+                        //Sensor A
+                        if (obj.pos.Y <= y && obj.pos.Y + obj.height >= y && obj.pos.X <= pos.X - 9 && obj.pos.X + obj.width >= pos.X - 9)
+                        {
+                            obj.PlayerCollision(this);
+                            break;
+                        }
+
+                        //Sensor B
+                        if (obj.pos.Y <= y && obj.pos.Y + obj.height >= y && obj.pos.X <= pos.X + 9 && obj.pos.X + obj.width >= pos.X + 9)
+                        {
+                            obj.PlayerCollision(this);
+                            break;
+                        }
+                    }
+                }
+                #endregion
+
+                #region Animation
                 if (Math.Abs(xsp) >= top) { sprite = runningsprite; }
                 else if (Math.Abs(xsp) > 0) { sprite = walkingsprite; }
                 else { sprite = idlesprite; }
 
                 if (sprite != null) { sprite.Animate((sprite == runningsprite || sprite == walkingsprite)? Math.Max(8 - Math.Abs(xsp), 1):sprite.framerate); }
+                #endregion
             }
         }
 
         public override void Draw()
         {
             if (active) { Main.spriteBatch.Draw(texture: sprite.texture, position: pos, sourceRectangle: sprite.frames[sprite.currentframe], effects: (left) ? SpriteEffects.FlipHorizontally : SpriteEffects.None, origin: new Vector2(20, 20)); }
+        }
+
+        public override void Delete()
+        {
+            for (int i = id + 1; i < Main.players.Count; i++) { Main.players[i].id--; }
+            Main.players.RemoveAt(id);
         }
         #endregion
     }

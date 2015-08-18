@@ -15,6 +15,7 @@ namespace SonicSharp
     {
         public static List<Tileset> tilesets = new List<Tileset>();
         public static List<Tile> tiles = new List<Tile>();
+        public static List<gameObject> objects = new List<gameObject>();
         public static int onscreentilecount = 0;
 
         public static void Load(string leveldir, string filename)
@@ -54,6 +55,7 @@ namespace SonicSharp
                 foreach (TiledLayer layer in map.Layers)
                 {
                     TiledTileLayer tlayer = layer as TiledTileLayer;
+                    TiledObjectGroup olayer = layer as TiledObjectGroup;
 
                     if (tlayer != null)
                     {
@@ -88,6 +90,19 @@ namespace SonicSharp
                             }
                         }
                     }
+
+                    if (olayer != null)
+                    {
+                        foreach (TiledObject obj in olayer.Objects)
+                        {
+                            switch (obj.Type)
+                            {
+                                case "Camera H Border Lock": objects.Add(new CameraHBorder(new Rectangle((int)obj.X,(int)obj.Y,(int)obj.Width,(int)obj.Height),obj.Properties.ContainsKey("Stops Player")? (obj.Properties["Stops Player"] == "1" || obj.Properties["Stops Player"].ToUpper() == "TRUE") :false)); break;
+                                case "Camera V Border Lock": objects.Add(new CameraVBorder(new Rectangle((int)obj.X, (int)obj.Y, (int)obj.Width, (int)obj.Height), obj.Properties.ContainsKey("Stops Player") ? (obj.Properties["Stops Player"] == "1" || obj.Properties["Stops Player"].ToUpper() == "TRUE") : false)); break;
+                                case "Ring": objects.Add(new Ring((float)obj.X, (float)obj.Y)); break;
+                            }
+                        }
+                    }
                 }
 
                 foreach (Player plr in Main.players)
@@ -108,7 +123,7 @@ namespace SonicSharp
                     plr.active = true;
                 }
 
-                Camera.pos.X = (304*16)*2; Camera.pos.Y = (55 * 16) * 2; //TODO: Remove this temporary line.
+                Camera.pos.X = (304*16)*Main.scalemodifier; Camera.pos.Y = (55 * 16) * Main.scalemodifier; //TODO: Remove this temporary line.
                 Program.game.Content.RootDirectory = "Content";
             }
             else
@@ -141,6 +156,14 @@ namespace SonicSharp
             {
                 Main.players[i].Update();
             }
+
+            Camera.Update();
+            Ring.ringsprite.Animate(Ring.ringsprite.framerate);
+
+            for (int i = 0; i < objects.Count; i++)
+            {
+                objects[i].Update();
+            }
         }
 
         public static void Draw()
@@ -148,19 +171,25 @@ namespace SonicSharp
             if (Main.debugmode) { onscreentilecount = 0; }
 
             //Draw the tiles...
-            for (int i = 0; i < tiles.Count; i++)
+            foreach (Tile tile in tiles)
             {
-                if (tiles[i].pos.X + 32 >= Camera.pos.X / Main.scalemodifier && tiles[i].pos.X - 32 <= Camera.pos.X/Main.scalemodifier + Program.game.Window.ClientBounds.Width / Main.scalemodifier && tiles[i].pos.Y + 32 >= Camera.pos.Y / Main.scalemodifier && tiles[i].pos.Y - 32 <= Camera.pos.Y / Main.scalemodifier + Program.game.Window.ClientBounds.Height / Main.scalemodifier)
+                if (tile.pos.X + 32 >= Camera.pos.X / Main.scalemodifier && tile.pos.X - 32 <= Camera.pos.X/Main.scalemodifier + Program.game.Window.ClientBounds.Width / Main.scalemodifier && tile.pos.Y + 32 >= Camera.pos.Y / Main.scalemodifier && tile.pos.Y - 32 <= Camera.pos.Y / Main.scalemodifier + Program.game.Window.ClientBounds.Height / Main.scalemodifier)
                 {
-                    tiles[i].Draw();
+                    tile.Draw();
                     if (Main.debugmode) { onscreentilecount++; }
                 }
             }
 
-            //Then the players.
+            //Then the players...
             for (int i = 0; i < Main.players.Count; i++)
             {
                 Main.players[i].Draw();
+            }
+            
+            //And, lastly, the objects..
+            for (int i = 0; i < objects.Count; i++)
+            {
+                objects[i].Draw();
             }
         }
     }

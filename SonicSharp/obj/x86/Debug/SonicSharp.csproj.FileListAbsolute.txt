@@ -34,3 +34,5 @@ C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\NTiled.xml
 C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Levels\Angel Island Zone\AI1chunks.png
 C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Levels\Angel Island Zone\AI1.tmx
 C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\ICSharpCode.SharpZipLib.dll
+C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Content\Sprites\Objects\ring.png
+C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Content\Sprites\Objects\ringsparkle.png

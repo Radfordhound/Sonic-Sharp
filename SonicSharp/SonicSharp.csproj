@@ -42,16 +42,16 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Camera.cs" />
-    <Compile Include="Font.cs" />
-    <Compile Include="gameObject.cs" />
-    <Compile Include="Level.cs" />
-    <Compile Include="Main.cs" />
-    <Compile Include="Player.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="src\Camera.cs" />
+    <Compile Include="src\Font.cs" />
+    <Compile Include="src\Objects.cs" />
+    <Compile Include="src\Level.cs" />
+    <Compile Include="src\Main.cs" />
+    <Compile Include="src\Player.cs" />
+    <Compile Include="src\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sprite.cs" />
-    <Compile Include="Tile.cs" />
+    <Compile Include="src\Sprite.cs" />
+    <Compile Include="src\Tile.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
@@ -71,6 +71,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Sprites\HUD\HUDfont.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\Objects\ring.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\Objects\ringsparkle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\Players\Sonic\idle.png">

@@ -18,10 +18,9 @@ namespace SonicSharp
         public static SpriteBatch spriteBatch;
         public static Font font;
         public static Color bgcolor = Color.Black;
-        public static int scalemodifier = 2;
+        public static int scalemodifier = 2, virtualscreenwidth = 800, virtualscreenheight = 600;
         public static bool fullscreen = false, debugmode = true;
         
-        private int virtualscreenwidth = 800, virtualscreenheight = 600;
         private Point windowstartpos;
         private Vector3 scale;
 
@@ -30,7 +29,7 @@ namespace SonicSharp
         public static KeyboardState kbst, prevkbst;
         public static GamePadState[] gpsts = new GamePadState[4], prevgpsts = new GamePadState[4];
         public static List<Player> players = new List<Player>();
-        public static string versionstring = "DEV 3.0", startdir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        public static string versionstring = "DEV 4.0", startdir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public enum GameState { loading, inlevel }
 
@@ -49,6 +48,7 @@ namespace SonicSharp
         /// </summary>
         protected override void Initialize()
         {
+            Window.AllowAltF4 = true;
             windowstartpos = Window.Position;
             base.Initialize();
         }
@@ -73,6 +73,9 @@ namespace SonicSharp
         /// </summary>
         private void LoadContentAsync()
         {
+            Ring.ringsprite = new Sprite(Program.game.Content.Load<Texture2D>("Sprites\\Objects\\ring"),4,16,16,4,1,6);
+            Particle.ringsparkle = Program.game.Content.Load<Texture2D>("Sprites\\Objects\\ringsparkle");
+
             players.Add(new Sonic(20,20,Player.Controllers.keyboard)); //TODO: Remove this temporary line!
             Level.Load("Angel Island Zone","AI1.tmx"); //TODO: Remove this temporary line!
             gamestate = GameState.inlevel;
@@ -143,6 +146,7 @@ namespace SonicSharp
                     font.Draw("SONICSHARP VERSION " + versionstring, Camera.pos.X/scalemodifier,Camera.pos.Y/scalemodifier);
                     font.Draw("CAMERA POSITION: " + Camera.pos.X.ToString() + " : " + Camera.pos.Y.ToString(), Camera.pos.X/scalemodifier, (Camera.pos.Y+30)/scalemodifier);
                     font.Draw("TILES ONSCREEN: " + Level.onscreentilecount,Camera.pos.X/scalemodifier,(Camera.pos.Y+60)/scalemodifier);
+                    font.Draw("PLAYER 1 POSITION: " + players[0].pos.X.ToString() + " : " + players[0].pos.Y.ToString(), Camera.pos.X/scalemodifier, (Camera.pos.Y + 90) / scalemodifier);
                 }
             }
 
