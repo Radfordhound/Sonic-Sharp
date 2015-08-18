@@ -9,4 +9,4 @@ This engine was written for fun/educational purposes and has no malicious intent
 
 **Bonzai and Divine Insect** -- For ripping some of the sprites used in this engine.
 
-<div align="center">##--More readme content coming soon!!!--</div>
+<div align="center"><h2>--More readme content coming soon!!!--</h2></div>
