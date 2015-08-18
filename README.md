@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/Radfordhound/Sonic-Sharp/master/logo%201920x667.png" width="480" height="167">
+<div align="center"><img src="https://raw.githubusercontent.com/Radfordhound/Sonic-Sharp/master/logo%201920x667.png" width="480" height="167"></div>
 
 SoniC# (pronounced "Sonic sharp") is an open-source fan-made engine based off of the brilliant games in the Sonic the Hedgehog franchise written in C# with MonoGame. SoniC# is designed to be flexible and easy-to-use, while still being as close to the original games as possible.
 
