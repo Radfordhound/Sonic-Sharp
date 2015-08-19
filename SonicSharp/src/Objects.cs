@@ -129,6 +129,46 @@ namespace SonicSharp
         }
     }
 
+    public class DeathTrigger : gameObject
+    {
+        public DeathTrigger(Rectangle border) : base()
+        {
+            pos = new Vector2(border.X, border.Y);
+            width = border.Width; height = border.Height;
+            active = false;
+        }
+
+        public override void PlayerCollision(Player plr)
+        {
+            Player.deathsound.Play();
+            plr.sprite = plr.deathsprite;
+            plr.xsp = 0; plr.ysp = -7;
+            Main.FadeOut(4,140,124);
+        }
+
+        public override void Draw()
+        {
+            if (Main.fadingout && Main.afterfadedelay == Main.afdcounter)
+            {
+                foreach (Player plr in Main.players)
+                {
+                    if (plr.GetType() == typeof(Sonic)) { plr.pos = Level.playerstarts[0]; }
+                    else if (plr.GetType() == typeof(Tails)) { plr.pos = Level.playerstarts[1]; }
+                    else if (plr.GetType() == typeof(Knuckles)) { plr.pos = Level.playerstarts[2]; }
+
+                    if (plr.GetType() == typeof(Sonic)) { Camera.pos = Level.camerastarts[0] * Main.scalemodifier; }
+                    else if (plr.GetType() == typeof(Tails)) { Camera.pos = Level.camerastarts[1] * Main.scalemodifier; }
+                    else if (plr.GetType() == typeof(Knuckles)) { Camera.pos = Level.camerastarts[2] * Main.scalemodifier; }
+
+                    plr.sprite = plr.idlesprite;
+                    plr.xsp = 0; plr.ysp = 0;
+                    plr.active = true; plr.falling = true; plr.left = false;
+                }
+                Main.FadeIn(4);  //TODO: Re-spawn deleted objects
+            }
+        }
+    }
+
     public class Ring : gameObject
     {
         public static Sprite ringsprite;
@@ -141,6 +181,7 @@ namespace SonicSharp
 
         public override void PlayerCollision(Player plr)
         {
+            //TODO: Add one to ring counter
             ringsound.Play();
             Level.objects.Add(new Particle(pos.X,pos.Y-16,new Sprite(Particle.ringsparkle,4,16,16,4,1,6),24));
             Delete();

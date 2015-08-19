@@ -17,10 +17,11 @@ namespace SonicSharp
         //Graphics-related variables
         public static GraphicsDeviceManager graphics;
         public static SpriteBatch spriteBatch;
+        public static Texture2D col;
         public static Font font;
         public static Color bgcolor = Color.Black;
-        public static int scalemodifier = 2, virtualscreenwidth = 800, virtualscreenheight = 600;
-        public static bool fullscreen = false, debugmode = true;
+        public static int scalemodifier = 2, virtualscreenwidth = 800, virtualscreenheight = 600, fadealpha = 0, fadingspeed = 1, afterfadedelay = 0, beforefadedelay = -1, bfdcounter = 0, afdcounter = 0;
+        public static bool fullscreen = false, debugmode = true, fadingin = false, fadingout = false;
         
         private Point windowstartpos;
         private Vector3 scale;
@@ -30,7 +31,7 @@ namespace SonicSharp
         public static KeyboardState kbst, prevkbst;
         public static GamePadState[] gpsts = new GamePadState[4], prevgpsts = new GamePadState[4];
         public static List<Player> players = new List<Player>();
-        public static string versionstring = "DEV 4.1", startdir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        public static string versionstring = "DEV 5.0", startdir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public enum GameState { loading, inlevel }
 
@@ -77,11 +78,14 @@ namespace SonicSharp
             //Textures
             Ring.ringsprite = new Sprite(Program.game.Content.Load<Texture2D>("Sprites\\Objects\\ring"),4,16,16,4,1,6);
             Particle.ringsparkle = Program.game.Content.Load<Texture2D>("Sprites\\Objects\\ringsparkle");
+            col = Program.game.Content.Load<Texture2D>("Sprites\\HUD\\col");
 
             //Sound Effects
+            Player.jumpingsound = Program.game.Content.Load<SoundEffect>("Sounds\\Players\\jumping");
+            Player.deathsound = Program.game.Content.Load<SoundEffect>("Sounds\\Players\\death");
             Ring.ringsound = Program.game.Content.Load<SoundEffect>("Sounds\\Objects\\ringcollect");
 
-            players.Add(new Sonic(20,20,Player.Controllers.keyboard)); //TODO: Remove this temporary line!
+            players.Add(new Sonic(0,0,Player.Controllers.keyboard)); //TODO: Remove this temporary line!
             Level.Load("Angel Island Zone","AI1.tmx"); //TODO: Remove this temporary line!
             gamestate = GameState.inlevel;
         }
@@ -125,7 +129,8 @@ namespace SonicSharp
             }
 
             prevkbst = kbst;
-            prevgpsts = gpsts;
+            prevgpsts[0] = gpsts[0]; prevgpsts[1] = gpsts[1];
+            prevgpsts[2] = gpsts[2]; prevgpsts[3] = gpsts[3];
             base.Update(gameTime);
         }
 
@@ -155,6 +160,12 @@ namespace SonicSharp
                 }
             }
 
+            if (fadingin && beforefadedelay == bfdcounter) { spriteBatch.Draw(texture: col, destinationRectangle: new Rectangle((int)Camera.pos.X / scalemodifier, (int)Camera.pos.Y / scalemodifier, Window.ClientBounds.Width, Window.ClientBounds.Height), color: new Color(0, 0, 0, fadealpha)); if (fadealpha > 0) { fadealpha -= fadingspeed; } else if (afterfadedelay == afdcounter) { fadingin = false; } else { afdcounter++; } }
+            else if (fadingin) { bfdcounter++; }
+
+            if (fadingout && beforefadedelay == bfdcounter) { spriteBatch.Draw(texture: col, destinationRectangle: new Rectangle((int)Camera.pos.X/scalemodifier,(int)Camera.pos.Y/scalemodifier,Window.ClientBounds.Width,Window.ClientBounds.Height), color: new Color(0,0,0,fadealpha)); if (fadealpha < 255) { fadealpha += fadingspeed; } else if (afterfadedelay == afdcounter) { fadingout = false; } else { afdcounter++; } }
+            else if (fadingout) { bfdcounter++; }
+
             virtualscreenwidth = Window.ClientBounds.Width;
             virtualscreenheight = Window.ClientBounds.Height;
 
@@ -173,5 +184,8 @@ namespace SonicSharp
         {
             return Matrix.Multiply(Matrix.CreateScale(scale), Matrix.CreateTranslation(Camera.pos.X * -1, Camera.pos.Y * -1, 0));
         }
+
+        public static void FadeIn(int fadingspeed) {fadingin = true; fadingout = false; fadealpha = 255; Main.fadingspeed = fadingspeed;}
+        public static void FadeOut(int fadingspeed, int beforefadedelay, int afterfadedelay) { afdcounter = 0; bfdcounter = 0; fadingout = true; fadingin = false; fadealpha = 0; Main.fadingspeed = fadingspeed; Main.beforefadedelay = beforefadedelay; Main.afterfadedelay = afterfadedelay; }
     }
 }

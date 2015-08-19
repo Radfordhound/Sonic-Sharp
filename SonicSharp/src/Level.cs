@@ -16,6 +16,7 @@ namespace SonicSharp
         public static List<Tileset> tilesets = new List<Tileset>();
         public static List<Tile> tiles = new List<Tile>();
         public static List<gameObject> objects = new List<gameObject>();
+        public static Vector2[] playerstarts = new Vector2[3], camerastarts = new Vector2[3];
         public static int onscreentilecount = 0;
 
         public static void Load(string leveldir, string filename)
@@ -37,12 +38,12 @@ namespace SonicSharp
 
                         //Generate all the tile rectangles within the tileset.
                         int i = 0;
-                        for (int y = 0; y < tileset.Image.Height; y+=16)
+                        for (int y = 0; y < tileset.Image.Height; y += 16)
                         {
-                            for (int x = 0; x < tileset.Image.Width; x+=16)
+                            for (int x = 0; x < tileset.Image.Width; x += 16)
                             {
-                                ts.tilesetparts.Add(new Rectangle(x,y,16,16));
-                                AssignProperties(tileset,i,ts);
+                                ts.tilesetparts.Add(new Rectangle(x, y, 16, 16));
+                                AssignProperties(tileset, i, ts);
                                 i++;
                             }
                         }
@@ -97,33 +98,41 @@ namespace SonicSharp
                         {
                             switch (obj.Type)
                             {
-                                case "Camera H Border Lock": objects.Add(new CameraHBorder(new Rectangle((int)obj.X,(int)obj.Y,(int)obj.Width,(int)obj.Height),obj.Properties.ContainsKey("Stops Player")? (obj.Properties["Stops Player"] == "1" || obj.Properties["Stops Player"].ToUpper() == "TRUE") :false)); break;
+                                case "Camera H Border Lock": objects.Add(new CameraHBorder(new Rectangle((int)obj.X, (int)obj.Y, (int)obj.Width, (int)obj.Height), obj.Properties.ContainsKey("Stops Player") ? (obj.Properties["Stops Player"] == "1" || obj.Properties["Stops Player"].ToUpper() == "TRUE") : false)); break;
                                 case "Camera V Border Lock": objects.Add(new CameraVBorder(new Rectangle((int)obj.X, (int)obj.Y, (int)obj.Width, (int)obj.Height), obj.Properties.ContainsKey("Stops Player") ? (obj.Properties["Stops Player"] == "1" || obj.Properties["Stops Player"].ToUpper() == "TRUE") : false)); break;
+                                case "Death Trigger": objects.Add(new DeathTrigger(new Rectangle((int)obj.X, (int)obj.Y, (int)obj.Width, (int)obj.Height))); break;
                                 case "Ring": objects.Add(new Ring((float)obj.X, (float)obj.Y)); break;
                             }
                         }
                     }
                 }
 
+                //Assign Playerstarts
+                if (map.Properties["Sonic Player Start"] != null) { playerstarts[0] = new Vector2(Convert.ToSingle(map.Properties["Sonic Player Start"].Split(',')[0]), Convert.ToSingle(map.Properties["Sonic Player Start"].Split(',')[1])); }
+                if (map.Properties["Tails Player Start"] != null) { playerstarts[1] = new Vector2(Convert.ToSingle(map.Properties["Tails Player Start"].Split(',')[0]), Convert.ToSingle(map.Properties["Tails Player Start"].Split(',')[1])); }
+                if (map.Properties["Knuckles Player Start"] != null) { playerstarts[2] = new Vector2(Convert.ToSingle(map.Properties["Knuckles Player Start"].Split(',')[0]), Convert.ToSingle(map.Properties["Knuckles Player Start"].Split(',')[1])); }
+
+                //Assign Camerastarts
+                if (map.Properties["Sonic Camera Start"] != null) { camerastarts[0] = new Vector2(Convert.ToSingle(map.Properties["Sonic Camera Start"].Split(',')[0]), Convert.ToSingle(map.Properties["Sonic Camera Start"].Split(',')[1])); }
+                if (map.Properties["Tails Camera Start"] != null) { camerastarts[1] = new Vector2(Convert.ToSingle(map.Properties["Tails Camera Start"].Split(',')[0]), Convert.ToSingle(map.Properties["Tails Camera Start"].Split(',')[1])); }
+                if (map.Properties["Knuckles Camera Start"] != null) { camerastarts[2] = new Vector2(Convert.ToSingle(map.Properties["Knuckles Camera Start"].Split(',')[0]), Convert.ToSingle(map.Properties["Knuckles Camera Start"].Split(',')[1])); }
+
+                //TODO: Fix the camerastart assignments.
+
+                //Move players to their correct start positions
                 foreach (Player plr in Main.players)
                 {
-                    if (plr.GetType() == typeof(Sonic) && map.Properties["Sonic Player Start"] != null)
-                    {
-                        plr.pos = new Vector2(Convert.ToSingle(map.Properties["Sonic Player Start"].Split(',')[0]), Convert.ToSingle(map.Properties["Sonic Player Start"].Split(',')[1]));
-                    }
-                    else if (plr.GetType() == typeof(Tails) && map.Properties["Tails Player Start"] != null)
-                    {
-                        plr.pos = new Vector2(Convert.ToSingle(map.Properties["Tails Player Start"].Split(',')[0]), Convert.ToSingle(map.Properties["Tails Player Start"].Split(',')[1]));
-                    }
-                    else if (plr.GetType() == typeof(Knuckles) && map.Properties["Knuckles Player Start"] != null)
-                    {
-                        plr.pos = new Vector2(Convert.ToSingle(map.Properties["Knuckles Player Start"].Split(',')[0]), Convert.ToSingle(map.Properties["Knuckles Player Start"].Split(',')[1]));
-                    }
+                    if (plr.GetType() == typeof(Sonic)) { plr.pos = playerstarts[0]; }
+                    else if (plr.GetType() == typeof(Tails)) { plr.pos = playerstarts[1]; }
+                    else if (plr.GetType() == typeof(Knuckles)) { plr.pos = playerstarts[2]; }
+
+                    if (plr.GetType() == typeof(Sonic)) { Camera.pos = camerastarts[0]*Main.scalemodifier; }
+                    else if (plr.GetType() == typeof(Tails)) { Camera.pos = camerastarts[1] * Main.scalemodifier; }
+                    else if (plr.GetType() == typeof(Knuckles)) { Camera.pos = camerastarts[2] * Main.scalemodifier; }
 
                     plr.active = true;
                 }
 
-                Camera.pos.X = (304*16)*Main.scalemodifier; Camera.pos.Y = (55 * 16) * Main.scalemodifier; //TODO: Remove this temporary line.
                 Program.game.Content.RootDirectory = "Content";
             }
             else

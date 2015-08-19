@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="776" height="104" tilewidth="16" tileheight="16" nextobjectid="26">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="776" height="104" tilewidth="16" tileheight="16" nextobjectid="27">
  <properties>
   <property name="Act Index" value="1"/>
+  <property name="Knuckles Camera Start" value="4864, 880"/>
   <property name="Knuckles Player Start" value="5024,1050"/>
+  <property name="Sonic Camera Start" value="4864, 880"/>
   <property name="Sonic Player Start" value="4912,1050"/>
+  <property name="Tails Camera Start" value="4864, 880"/>
   <property name="Tails Player Start" value="5024,1050"/>
   <property name="Zone Name" value="Angel Island Zone"/>
  </properties>
@@ -610,5 +613,6 @@
     <property name="Stops Player" value="0"/>
    </properties>
   </object>
+  <object id="26" type="Death Trigger" x="0" y="1552" width="12416" height="112"/>
  </objectgroup>
 </map>

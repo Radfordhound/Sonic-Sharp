@@ -38,3 +38,7 @@ C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Content\Spr
 C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Content\Sprites\Objects\ringsparkle.png
 C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Content\Sprites\Players\Sonic\jumping.png
 C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Content\Sounds\Objects\ringcollect.xnb
+C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Content\Sounds\Players\jumping.xnb
+C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Content\Sprites\Players\Sonic\death.png
+C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Content\Sounds\Players\death.xnb
+C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Content\Sprites\HUD\col.png

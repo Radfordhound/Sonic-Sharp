@@ -21,7 +21,7 @@ namespace SonicSharp
             vborders[0] = ((Main.virtualscreenheight / 224) * 64) / Main.scalemodifier;
             vborders[1] = ((Main.virtualscreenheight / 224) * 128) / Main.scalemodifier;
 
-            if (Main.players.Count > 0)
+            if (Main.players.Count > 0 && Main.players[0].sprite != Main.players[0].deathsprite)
             {
                 //Horizontal Camera
                 if (Main.players[0].pos.X >= (pos.X/Main.scalemodifier) + hborders[1])
@@ -50,11 +50,37 @@ namespace SonicSharp
                 }
 
                 //Vertical Camera
-                if (Main.players[0].pos.Y * Main.scalemodifier - pos.Y != 96 * Main.scalemodifier)
+                if (Main.players[0].falling)
+                {
+                    if (Main.players[0].pos.Y >= (pos.Y / Main.scalemodifier) + vborders[1])
+                    {
+                        if (((Main.players[0].pos.Y - pos.Y / Main.scalemodifier) - vborders[1]) <= 0)
+                        {
+                            pos.Y++;
+                        }
+                        else if (((Main.players[0].pos.Y - pos.Y / Main.scalemodifier) - vborders[1]) < 16)
+                        {
+                            pos.Y += (Main.players[0].pos.Y - pos.Y / Main.scalemodifier) - vborders[1];
+                        }
+                        else pos.Y += 16;
+                    }
+                    else if (Main.players[0].pos.Y <= (pos.Y / Main.scalemodifier) + vborders[0])
+                    {
+                        if (((Main.players[0].pos.Y - pos.Y / Main.scalemodifier) - vborders[0]) >= 0)
+                        {
+                            pos.Y--;
+                        }
+                        else if (((Main.players[0].pos.Y - pos.Y / Main.scalemodifier) - vborders[0]) > -16)
+                        {
+                            pos.Y += (Main.players[0].pos.Y - pos.Y / Main.scalemodifier) - vborders[0];
+                        }
+                        else pos.Y -= 16;
+                    }
+                }
+                else if (Main.players[0].pos.Y * Main.scalemodifier - pos.Y != 96 * Main.scalemodifier)
                 {
                     float dif = 96 * Main.scalemodifier - (Main.players[0].pos.Y * Main.scalemodifier - pos.Y);
-                    pos.Y+= (Math.Abs(dif) <= 6)?-dif:6*-Math.Sign(dif);
-                    //Console.WriteLine(96 * Main.scalemodifier - (Main.players[0].pos.Y * Main.scalemodifier - pos.Y));
+                    pos.Y += (Math.Abs(dif) <= 6) ? -dif : 6 * -Math.Sign(dif);
                 }
             }
         }
