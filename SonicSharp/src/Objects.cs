@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -131,6 +132,7 @@ namespace SonicSharp
     public class Ring : gameObject
     {
         public static Sprite ringsprite;
+        public static SoundEffect ringsound;
 
         public Ring(float x, float y) : base()
         {
@@ -139,7 +141,7 @@ namespace SonicSharp
 
         public override void PlayerCollision(Player plr)
         {
-            //TODO: Play Sound Effect
+            ringsound.Play();
             Level.objects.Add(new Particle(pos.X,pos.Y-16,new Sprite(Particle.ringsparkle,4,16,16,4,1,6),24));
             Delete();
         }

@@ -36,3 +36,5 @@ C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Levels\Ange
 C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\ICSharpCode.SharpZipLib.dll
 C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Content\Sprites\Objects\ring.png
 C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Content\Sprites\Objects\ringsparkle.png
+C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Content\Sprites\Players\Sonic\jumping.png
+C:\Users\Graham\Documents\Github\SoniC#\SonicSharp\bin\Windows\Debug\Content\Sounds\Objects\ringcollect.xnb

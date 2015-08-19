@@ -82,6 +82,9 @@
     <Content Include="Content\Sprites\Players\Sonic\idle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Sprites\Players\Sonic\jumping.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Sprites\Players\Sonic\running.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -98,6 +101,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Content\Sounds\Objects\ringcollect.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Levels\Angel Island Zone\AI1.tmx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

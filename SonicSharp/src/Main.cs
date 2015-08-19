@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace SonicSharp
         public static KeyboardState kbst, prevkbst;
         public static GamePadState[] gpsts = new GamePadState[4], prevgpsts = new GamePadState[4];
         public static List<Player> players = new List<Player>();
-        public static string versionstring = "DEV 4.0", startdir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        public static string versionstring = "DEV 4.1", startdir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public enum GameState { loading, inlevel }
 
@@ -73,8 +74,12 @@ namespace SonicSharp
         /// </summary>
         private void LoadContentAsync()
         {
+            //Textures
             Ring.ringsprite = new Sprite(Program.game.Content.Load<Texture2D>("Sprites\\Objects\\ring"),4,16,16,4,1,6);
             Particle.ringsparkle = Program.game.Content.Load<Texture2D>("Sprites\\Objects\\ringsparkle");
+
+            //Sound Effects
+            Ring.ringsound = Program.game.Content.Load<SoundEffect>("Sounds\\Objects\\ringcollect");
 
             players.Add(new Sonic(20,20,Player.Controllers.keyboard)); //TODO: Remove this temporary line!
             Level.Load("Angel Island Zone","AI1.tmx"); //TODO: Remove this temporary line!
@@ -101,7 +106,7 @@ namespace SonicSharp
             gpsts[0] = GamePad.GetState(PlayerIndex.One); gpsts[1] = GamePad.GetState(PlayerIndex.Two);
             gpsts[2] = GamePad.GetState(PlayerIndex.Three); gpsts[3] = GamePad.GetState(PlayerIndex.Four);
 
-            if (gpsts[0].Buttons.Back == ButtonState.Pressed || kbst.IsKeyDown(Keys.Escape)) Exit(); //TODO: Remove this line
+            if (gpsts[0].Buttons.Back == ButtonState.Pressed || kbst.IsKeyDown(Keys.Escape)) { Exit(); return; } //TODO: Remove this line
 
             if (gamestate == GameState.inlevel)
             {
