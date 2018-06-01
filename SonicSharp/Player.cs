@@ -16,7 +16,20 @@ namespace SonicSharp
             PushingSprite, Balancing1Sprite, Balancing2Sprite;
 
         public Color Color = Color.White;
-        public float Speed, XSpeed, YSpeed, Angle;
+        public float Speed, XSpeed, YSpeed;
+
+        public float Angle
+        {
+            get => angle;
+            set
+            {
+                if (value >= 6.283185f)
+                    angle = 0;
+                else
+                    angle = value;
+            }
+        }
+
         public float Acceleration = 0.046875f, Deceleration = 0.5f, Friction = 0.046875f,
             TopSpeed = 6, BrakeThreshold = 4.5f, Gravity = 0.21875f, TopYSpeed = 16;
 
@@ -24,6 +37,7 @@ namespace SonicSharp
         public SpriteEffects Effects = SpriteEffects.None;
         public bool IsFalling = true;
 
+        protected float angle = 0;
         protected bool isPushing = false, isBalancing = false;
 
         public const int Width = 40, Height = 40,
@@ -36,7 +50,7 @@ namespace SonicSharp
         public override void Init()
         {
             Sprite = IdleSprite;
-            Speed = XSpeed = YSpeed = Angle = 0;
+            Speed = XSpeed = YSpeed = angle = 0;
             IsFalling = true;
             isPushing = isBalancing = false;
         }
@@ -95,8 +109,8 @@ namespace SonicSharp
             // Update Position
             if (!IsFalling)
             {
-                XSpeed = Speed * (float)Math.Cos(Angle);
-                YSpeed = Speed * -(float)Math.Sin(Angle);
+                XSpeed = Speed * (float)Math.Cos(angle);
+                YSpeed = Speed * -(float)Math.Sin(angle);
             }
             else
             {
@@ -171,7 +185,10 @@ namespace SonicSharp
                 if (!sensorB.HasValue || (sensorA.HasValue &&
                     sensorA.Value < sensorB.Value))
                 {
-                    if (!sensorB.HasValue && Speed == 0 && Angle == 0)
+                    Position.Y = sensorA.Value;
+                    Angle = MathHelper.ToRadians((256 - angleA) * 1.40625f);
+
+                    if (!sensorB.HasValue && Speed == 0 && angle == 0)
                     {
                         if (Position.X >= AX + Tile.TileSize + 4)
                             Sprite = Balancing2Sprite;
@@ -180,13 +197,15 @@ namespace SonicSharp
 
                         isBalancing = true;
                     }
-
-                    Position.Y = sensorA.Value;
-                    Angle = MathHelper.ToRadians((256 - angleA) * 1.40625f);
                 }
                 else
                 {
-                    if (!sensorA.HasValue && Speed == 0 && Angle == 0)
+                    Position.Y = sensorB.Value;
+                    Angle = MathHelper.ToRadians((256 - ((sensorA.HasValue &&
+                        sensorB.HasValue && sensorA.Value == sensorB.Value &&
+                        angleA < angleB) ? angleA : angleB)) * 1.40625f);
+
+                    if (!sensorA.HasValue && Speed == 0 && angle == 0)
                     {
                         if (Position.X <= BX - 4)
                             Sprite = Balancing2Sprite;
@@ -195,11 +214,6 @@ namespace SonicSharp
 
                         isBalancing = true;
                     }
-
-                    Position.Y = sensorB.Value;
-                    Angle = MathHelper.ToRadians((256 - ((sensorA.HasValue &&
-                        sensorB.HasValue && sensorA.Value == sensorB.Value &&
-                        angleA < angleB) ? angleA : angleB)) * 1.40625f);
                 }
             }
             else
@@ -216,12 +230,9 @@ namespace SonicSharp
                 }
                 else
                 {
-                    Angle = 0;
+                    angle = 0;
                 }
             }
-
-            if (Angle >= 6.283185f)
-                Angle = 0;
 
             // Update Sprite
             if (IsFalling || (((Sprite != Balancing1Sprite &&
@@ -305,7 +316,7 @@ namespace SonicSharp
         public override void Draw()
         {
             if (Sprite == null) return;
-            Sprite.Draw(Position, Effects, Color, Angle);
+            Sprite.Draw(Position, Effects, Color, angle);
         }
     }
 }
