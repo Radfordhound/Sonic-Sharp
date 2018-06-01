@@ -104,9 +104,9 @@ namespace SonicSharp
 
             // Horizontal Collision
             Block block;
-            int posX, biX, blockX, tiX;
+            int posX, biX, blockX, tiX, tileIndex;
             int posY, biY, blockY, tiY, yoff;
-            posY = ((int)Position.Y + 8); // TODO: If on steep ground make this just Position.Y
+            posY = ((int)Position.Y); // TODO: Make this Position.Y + 8 if on flat ground?
 
             if (posY >= 0 && posY <= GameWindow.CurrentStage.RowCount * Block.BlockSize)
             {
@@ -146,23 +146,39 @@ namespace SonicSharp
             }
 
             // Vertical Collision
-            var sensorA = VerticalCollisionCheck(-9);
-            var sensorB = VerticalCollisionCheck(9);
+            var sensorA = VerticalCollisionCheck(-9, out byte angleA);
+            var sensorB = VerticalCollisionCheck(9, out byte angleB);
 
             if (!(IsFalling = (!sensorA.HasValue && !sensorB.HasValue)))
             {
                 YSpeed = 0;
-                Position.Y = (!sensorB.HasValue || (sensorA.HasValue &&
-                    sensorA.Value < sensorB.Value)) ? sensorA.Value : sensorB.Value;
+                if (!sensorB.HasValue || (sensorA.HasValue &&
+                    sensorA.Value < sensorB.Value))
+                {
+                    Position.Y = sensorA.Value;
+                    Angle = MathHelper.ToRadians((256 - angleA) * 1.40625f);
+                }
+                else
+                {
+                    Position.Y = sensorB.Value;
+                    Angle = MathHelper.ToRadians((256 - ((sensorA.HasValue &&
+                        sensorB.HasValue && sensorA.Value == sensorB.Value &&
+                        angleA < angleB) ? angleA : angleB)) * 1.40625f);
+                }
             }
             else
             {
                 // Backup Sensor for when you're exactly in the center of a tile
-                var middleSensor = VerticalCollisionCheck(0);
+                var middleSensor = VerticalCollisionCheck(0, out byte angleMiddle);
                 if (!(IsFalling = !middleSensor.HasValue))
                 {
                     YSpeed = 0;
                     Position.Y = middleSensor.Value;
+                    Angle = MathHelper.ToRadians((256 - angleMiddle) * 1.40625f);
+                }
+                else
+                {
+                    Angle = 0;
                 }
             }
 
@@ -188,11 +204,14 @@ namespace SonicSharp
             }
             
             // Sub-Methods
-            float? VerticalCollisionCheck(int xoffset)
+            float? VerticalCollisionCheck(int xoffset, out byte angle)
             {
                 posX = ((int)Position.X + xoffset);
                 if (posX < 0 || posX > GameWindow.CurrentStage.ColumnCount * Block.BlockSize)
+                {
+                    angle = 0;
                     return null;
+                }
 
                 biX = (posX / (int)Block.BlockSize);
                 blockX = (biX * (int)Block.BlockSize);
@@ -211,16 +230,22 @@ namespace SonicSharp
                     blockY = (biY * (int)Block.BlockSize);
                     tiY = ((posY - blockY) / (int)Tile.TileSize);
                     block = GameWindow.CurrentStage.GetBlock((uint)biY, (uint)biX);
+                    tileIndex = tiX + (tiY * (int)Block.TilesPerRow);
 
-                    if (block.Tiles[tiX + (tiY * (int)Block.TilesPerRow)] != 0)
+                    if (block.Tiles[tileIndex] != 0)
                     {
+                        // It's more performant to copy the struct than index the array twice
+                        var tile = GameWindow.CurrentStage.Tiles[block.Tiles[tileIndex]];
+                        int tileXPos = (tiX * (int)Tile.TileSize) + blockX;
                         int tileYPos = (tiY * (int)Tile.TileSize) + blockY;
 
-                        // TODO: Heightmap stuff
-                        return tileYPos - 20;
+                        angle = tile.Angle;
+                        var h = tile.GetHeight((byte)(posX - tileXPos));
+                        return (tileYPos + (16 - h)) - 20;
                     }
                 }
 
+                angle = 0;
                 return null;
             }
         }
@@ -228,7 +253,7 @@ namespace SonicSharp
         public override void Draw()
         {
             if (Sprite == null) return;
-            Sprite.Draw(Position, Effects, Color);
+            Sprite.Draw(Position, Effects, Color, Angle);
         }
     }
 }

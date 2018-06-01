@@ -114,14 +114,26 @@ namespace SonicSharp
             plr.Position.X = 4;
             plr.Position.Y = -400;
             CurrentStage = new Stage(Content.Load<Texture2D>("Stages\\TestZone\\TileMap"));
-            CurrentStage.Tiles.Add(new Tile(0, CurrentStage.TileMap));
-            CurrentStage.Tiles.Add(new Tile(1, CurrentStage.TileMap));
-            CurrentStage.Tiles.Add(new Tile(2, CurrentStage.TileMap));
-            CurrentStage.Tiles.Add(new Tile(3, CurrentStage.TileMap));
-            CurrentStage.Tiles.Add(new Tile(4, CurrentStage.TileMap));
-            CurrentStage.Tiles.Add(new Tile(5, CurrentStage.TileMap));
-            CurrentStage.Tiles.Add(new Tile(6, CurrentStage.TileMap));
-            CurrentStage.Tiles.Add(new Tile(7, CurrentStage.TileMap));
+            
+            for (int i = 0; i < 8; ++i)
+            {
+                CurrentStage.Tiles.Add(new Tile(i, CurrentStage.TileMap));
+            }
+
+            // Before you freak out at how hard this all is the plan is to make
+            // a level editor that generates all of this data for you so you
+            // can just do Stage.Load(path).
+            CurrentStage.Tiles.Add(new Tile(8, CurrentStage.TileMap,
+                0x18, 2, 0x210C, 0x8529, 0x8C74, 0x2529));
+
+            CurrentStage.Tiles.Add(new Tile(9, CurrentStage.TileMap,
+                0xE8, 0x4A52, 0x8398, 0xC529, 0x621, 0x400));
+
+            CurrentStage.Tiles.Add(new Tile(10, CurrentStage.TileMap,
+                0, 0x4A52, 0x94A5, 0x294A, 0x5294, 0xA529));
+
+            CurrentStage.Tiles.Add(new Tile(11, CurrentStage.TileMap,
+                0x13, 0x4A54, 0xA5AD, 0x8C6B, 0x5CE7, 0xBE10));
 
             CurrentStage.Blocks.Add(new Block()
             {
@@ -142,7 +154,7 @@ namespace SonicSharp
             {
                 Tiles = new ushort[]
                 {
-                    1, 0, 0, 0, 0, 0, 0, 1,
+                    10, 10, 9, 0, 0, 8, 10, 11,
                     1, 2, 3, 4, 5, 6, 7, 1,
                     1, 2, 3, 4, 5, 6, 7, 1,
                     1, 2, 3, 4, 5, 6, 7, 1,

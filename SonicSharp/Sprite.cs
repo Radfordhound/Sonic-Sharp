@@ -73,13 +73,13 @@ namespace SonicSharp
         }
 
         public virtual void Draw(float x, float y, SpriteEffects effects =
-            SpriteEffects.None, Color? color = null)
+            SpriteEffects.None, Color? color = null, float rot = 0)
         {
-            Draw(new Vector2(x, y), effects, color);
+            Draw(new Vector2(x, y), effects, color, rot);
         }
 
         public virtual void Draw(Vector2 position, SpriteEffects effects =
-            SpriteEffects.None, Color? color = null)
+            SpriteEffects.None, Color? color = null, float rot = 0)
         {
             if (Texture == null)
                 return;
@@ -87,7 +87,7 @@ namespace SonicSharp
             GameWindow.SpriteBatch.Draw(
                 Texture, position,
                 Frames[CurrentFrame],
-                color ?? Color.White, 0,
+                color ?? Color.White, rot,
                 Origin, 1, effects, 0);
         }
     }
