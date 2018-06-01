@@ -4,6 +4,10 @@ using System;
 
 namespace SonicSharp
 {
+    /// <summary>
+    /// A 16x16 drawable entity which contains collision that
+    /// gets used within "blocks" to make up a stage.
+    /// </summary>
     public struct Tile
     {
         // Variables/Constants

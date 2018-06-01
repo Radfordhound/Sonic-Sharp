@@ -6,6 +6,10 @@ using System.Collections.Generic;
 
 namespace SonicSharp
 {
+    /// <summary>
+    /// A playable level made up of a bunch of blocks (groups of tiles)
+    /// on two different "layers": The background layer and the foreground layer.
+    /// </summary>
     public class Stage
     {
         // Variables/Constants
@@ -37,8 +41,8 @@ namespace SonicSharp
         }
 
         // Methods
-        public virtual void SetBlock(uint row, uint column,
-            byte blockIndex, bool onBackground = false)
+        public virtual void SetBlockIndex(uint row, uint column,
+            byte index, bool onBackground = false)
         {
             if (row >= RowCount)
                 throw new ArgumentOutOfRangeException("row");
@@ -48,23 +52,24 @@ namespace SonicSharp
 
             if (onBackground)
             {
-                background[row, column] = blockIndex;
+                background[row, column] = index;
             }
             else
             {
-                foreground[row, column] = blockIndex;
+                foreground[row, column] = index;
             }
         }
 
         public virtual Block GetBlock(byte index)
         {
-            return Blocks[index];
+            return (index == 0) ? null : Blocks[index - 1];
         }
 
         public virtual Block GetBlock(uint row, uint column,
             bool fromBackground = false)
         {
-            return Blocks[GetBlockIndex(row, column, fromBackground)];
+            byte index = GetBlockIndex(row, column, fromBackground);
+            return GetBlock(index);
         }
 
         public virtual byte GetBlockIndex(uint row, uint column,
@@ -117,12 +122,17 @@ namespace SonicSharp
                 void DrawLayer(byte[,] layer)
                 {
                     // Draw each block currently within the on-screen boundries
+                    byte blockIndex;
                     pos = new Vector2(bl * Block.BlockSize, bt * Block.BlockSize);
+
                     for (int row = bt; row < bb; ++row)
                     {
                         for (int column = bl; column < br; ++column)
                         {
-                            DrawBlock(Blocks[layer[row, column]], pos);
+                            blockIndex = layer[row, column];
+                            if (blockIndex != 0)
+                                DrawBlock(Blocks[--blockIndex], pos);
+
                             pos.X += Block.BlockSize;
                         }
 

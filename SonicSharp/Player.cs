@@ -129,6 +129,9 @@ namespace SonicSharp
                     tiX = ((posX - blockX) / (int)Tile.TileSize);
                     block = GameWindow.CurrentStage.GetBlock((uint)biY, (uint)biX);
 
+                    if (block == null)
+                        continue;
+
                     if (block.Tiles[tiX + yoff] != 0)
                     {
                         Speed = 0;
@@ -230,8 +233,11 @@ namespace SonicSharp
                     blockY = (biY * (int)Block.BlockSize);
                     tiY = ((posY - blockY) / (int)Tile.TileSize);
                     block = GameWindow.CurrentStage.GetBlock((uint)biY, (uint)biX);
-                    tileIndex = tiX + (tiY * (int)Block.TilesPerRow);
 
+                    if (block == null)
+                        continue;
+
+                    tileIndex = tiX + (tiY * (int)Block.TilesPerRow);
                     if (block.Tiles[tileIndex] != 0)
                     {
                         // It's more performant to copy the struct than index the array twice

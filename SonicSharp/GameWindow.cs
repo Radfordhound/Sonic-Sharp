@@ -139,21 +139,6 @@ namespace SonicSharp
             {
                 Tiles = new ushort[]
                 {
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0
-                }
-            });
-
-            CurrentStage.Blocks.Add(new Block()
-            {
-                Tiles = new ushort[]
-                {
                     10, 10, 9, 0, 0, 8, 10, 11,
                     1, 2, 3, 4, 5, 6, 7, 1,
                     1, 2, 3, 4, 5, 6, 7, 1,
@@ -180,19 +165,19 @@ namespace SonicSharp
                 }
             });
 
-            CurrentStage.SetBlock(0, 0, 1);
-            CurrentStage.SetBlock(0, 1, 2);
-            CurrentStage.SetBlock(0, 2, 2);
-            CurrentStage.SetBlock(0, 3, 0);
-            CurrentStage.SetBlock(0, 4, 2);
-            CurrentStage.SetBlock(0, 5, 2);
+            CurrentStage.SetBlockIndex(0, 0, 1);
+            CurrentStage.SetBlockIndex(0, 1, 2);
+            CurrentStage.SetBlockIndex(0, 2, 2);
+            CurrentStage.SetBlockIndex(0, 3, 0);
+            CurrentStage.SetBlockIndex(0, 4, 2);
+            CurrentStage.SetBlockIndex(0, 5, 2);
 
-            CurrentStage.SetBlock(1, 0, 2);
-            CurrentStage.SetBlock(1, 1, 2);
-            CurrentStage.SetBlock(1, 2, 2);
-            CurrentStage.SetBlock(1, 3, 2);
-            CurrentStage.SetBlock(1, 4, 0);
-            CurrentStage.SetBlock(1, 5, 2);
+            CurrentStage.SetBlockIndex(1, 0, 2);
+            CurrentStage.SetBlockIndex(1, 1, 2);
+            CurrentStage.SetBlockIndex(1, 2, 2);
+            CurrentStage.SetBlockIndex(1, 3, 2);
+            CurrentStage.SetBlockIndex(1, 4, 0);
+            CurrentStage.SetBlockIndex(1, 5, 2);
         }
 
         /// <summary>
