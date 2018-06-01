@@ -40,6 +40,15 @@ namespace SonicSharp.Players
 
             TurnAroundSprite = new Sprite(Path.Combine(pth, "turnaround"),
                 Width, Height, origin, doesLoop: false);
+
+            PushingSprite = new Sprite(Path.Combine(pth, "pushing"),
+                Width, Height, origin, 32);
+
+            Balancing1Sprite = new Sprite(Path.Combine(pth, "balancing1"),
+                Width, Height, origin, 8);
+
+            Balancing2Sprite = new Sprite(Path.Combine(pth, "balancing2"),
+                Width, Height + 2, new Vector2(OriginX, OriginY + 2), 6);
         }
     }
 }

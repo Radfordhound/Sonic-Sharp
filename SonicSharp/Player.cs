@@ -12,7 +12,8 @@ namespace SonicSharp
     {
         // Variables/Constants
         public Sprite IdleSprite, WalkingSprite, RunningSprite,
-            BrakingSprite, DeadSprite, JumpingSprite, TurnAroundSprite;
+            BrakingSprite, DeadSprite, JumpingSprite, TurnAroundSprite,
+            PushingSprite, Balancing1Sprite, Balancing2Sprite;
 
         public Color Color = Color.White;
         public float Speed, XSpeed, YSpeed, Angle;
@@ -22,6 +23,8 @@ namespace SonicSharp
         public Input.Devices InputDevice = Input.Devices.Keyboard;
         public SpriteEffects Effects = SpriteEffects.None;
         public bool IsFalling = true;
+
+        protected bool isPushing = false, isBalancing = false;
 
         public const int Width = 40, Height = 40,
             SpinWidth = 30, SpinHeight = 30;
@@ -33,11 +36,15 @@ namespace SonicSharp
         public override void Init()
         {
             Sprite = IdleSprite;
-            IsFalling = false; // TODO: PLEASE REMOVE THIS LINE ONCE DONE DEBUGGING THX
+            Speed = XSpeed = YSpeed = Angle = 0;
+            IsFalling = true;
+            isPushing = isBalancing = false;
         }
 
         public override void Update()
         {
+            isPushing = isBalancing = false;
+
             // Ground Movement
             if (GameWindow.Inputs["Left"].IsDown(InputDevice) ||
                 GameWindow.Inputs["AltLeft"].IsDown(InputDevice))
@@ -56,6 +63,7 @@ namespace SonicSharp
 
                     Effects = SpriteEffects.FlipHorizontally;
                     Speed -= Acceleration;
+                    isPushing = true;
                 }
             }
             else if (GameWindow.Inputs["Right"].IsDown(InputDevice) ||
@@ -75,6 +83,7 @@ namespace SonicSharp
 
                     Effects = SpriteEffects.None;
                     Speed += Acceleration;
+                    isPushing = true;
                 }
             }
             else
@@ -82,8 +91,6 @@ namespace SonicSharp
                 Speed -= Math.Min(Math.Abs(Speed),
                     Friction) * Math.Sign(Speed);
             }
-
-            // TODO
 
             // Update Position
             if (!IsFalling)
@@ -134,6 +141,9 @@ namespace SonicSharp
 
                     if (block.Tiles[tiX + yoff] != 0)
                     {
+                        if (isPushing)
+                            Sprite = PushingSprite;
+
                         Speed = 0;
 
                         int tileXPos = (tiX * (int)Tile.TileSize) + blockX;
@@ -142,6 +152,9 @@ namespace SonicSharp
                         break;
                     }
                 }
+
+                if (Speed != 0)
+                    isPushing = false;
             }
             else
             {
@@ -149,8 +162,8 @@ namespace SonicSharp
             }
 
             // Vertical Collision
-            var sensorA = VerticalCollisionCheck(-9, out byte angleA);
-            var sensorB = VerticalCollisionCheck(9, out byte angleB);
+            var sensorA = VerticalCollisionCheck(-9, out byte angleA, out int AX);
+            var sensorB = VerticalCollisionCheck(9, out byte angleB, out int BX);
 
             if (!(IsFalling = (!sensorA.HasValue && !sensorB.HasValue)))
             {
@@ -158,11 +171,31 @@ namespace SonicSharp
                 if (!sensorB.HasValue || (sensorA.HasValue &&
                     sensorA.Value < sensorB.Value))
                 {
+                    if (!sensorB.HasValue && Speed == 0 && Angle == 0)
+                    {
+                        if (Position.X >= AX + Tile.TileSize + 4)
+                            Sprite = Balancing2Sprite;
+                        else if (Position.X > AX + Tile.TileSize)
+                            Sprite = Balancing1Sprite;
+
+                        isBalancing = true;
+                    }
+
                     Position.Y = sensorA.Value;
                     Angle = MathHelper.ToRadians((256 - angleA) * 1.40625f);
                 }
                 else
                 {
+                    if (!sensorA.HasValue && Speed == 0 && Angle == 0)
+                    {
+                        if (Position.X <= BX - 4)
+                            Sprite = Balancing2Sprite;
+                        else
+                            Sprite = Balancing1Sprite;
+
+                        isBalancing = true;
+                    }
+
                     Position.Y = sensorB.Value;
                     Angle = MathHelper.ToRadians((256 - ((sensorA.HasValue &&
                         sensorB.HasValue && sensorA.Value == sensorB.Value &&
@@ -172,7 +205,9 @@ namespace SonicSharp
             else
             {
                 // Backup Sensor for when you're exactly in the center of a tile
-                var middleSensor = VerticalCollisionCheck(0, out byte angleMiddle);
+                var middleSensor = VerticalCollisionCheck(0,
+                    out byte angleMiddle, out int middleX);
+
                 if (!(IsFalling = !middleSensor.HasValue))
                 {
                     YSpeed = 0;
@@ -185,9 +220,15 @@ namespace SonicSharp
                 }
             }
 
+            if (Angle >= 6.283185f)
+                Angle = 0;
+
             // Update Sprite
-            if (!IsFalling && ((Sprite != BrakingSprite &&
-                Sprite != TurnAroundSprite) || Sprite.HasLooped))
+            if (IsFalling || (((Sprite != Balancing1Sprite &&
+                Sprite != Balancing2Sprite)|| !isBalancing) &&
+                (Sprite != PushingSprite || !isPushing) &&
+                ((Sprite != BrakingSprite && Sprite != TurnAroundSprite) ||
+                Sprite.HasLooped)))
             {
                 Sprite = (Speed == 0) ? IdleSprite :
                     (Math.Abs(Speed) >= TopSpeed) ?
@@ -196,10 +237,11 @@ namespace SonicSharp
 
             // Animate Sprite
             if (Sprite == null) return;
-            if (IsFalling || Speed != 0)
+            if (Sprite != PushingSprite && Sprite != Balancing1Sprite &&
+                Sprite != Balancing2Sprite && (IsFalling || Speed != 0))
             {
-                Sprite.Animate(Math.Max(((IsFalling) ? 5 : 8) -
-                    Math.Abs(Speed), 1));
+                Sprite.Animate(Math.Max(((IsFalling) ?
+                    5 : 8) - Math.Abs(Speed), 1));
             }
             else
             {
@@ -207,12 +249,13 @@ namespace SonicSharp
             }
             
             // Sub-Methods
-            float? VerticalCollisionCheck(int xoffset, out byte angle)
+            float? VerticalCollisionCheck(int xoffset, out byte angle, out int xpos)
             {
                 posX = ((int)Position.X + xoffset);
                 if (posX < 0 || posX > GameWindow.CurrentStage.ColumnCount * Block.BlockSize)
                 {
                     angle = 0;
+                    xpos = 0;
                     return null;
                 }
 
@@ -244,14 +287,17 @@ namespace SonicSharp
                         var tile = GameWindow.CurrentStage.Tiles[block.Tiles[tileIndex]];
                         int tileXPos = (tiX * (int)Tile.TileSize) + blockX;
                         int tileYPos = (tiY * (int)Tile.TileSize) + blockY;
-
+                        
                         angle = tile.Angle;
+                        xpos = tileXPos;
+
                         var h = tile.GetHeight((byte)(posX - tileXPos));
                         return (tileYPos + (16 - h)) - 20;
                     }
                 }
 
                 angle = 0;
+                xpos = 0;
                 return null;
             }
         }
