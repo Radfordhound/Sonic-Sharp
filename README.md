@@ -5,4 +5,4 @@ It was written in C# with MonoGame with the intent of being flexible and easy-to
 
 ## Credits
 - **SEGA**: For creating Sonic the Hedgehog as well as many of the assets included with the engine.
-- **Bonzai and Divine Insect**: For ripping some of the sprites used in this engine.
+- **Sonic Retro**: For their vast amount of useful information, such as the excellent [Sonic Physics Guide](https://info.sonicretro.org/Sonic_Physics_Guide). This project wouldn't exist without it!
