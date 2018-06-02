@@ -153,11 +153,29 @@ namespace SonicSharp
             // Sub-Methods
             void ReadLayer(byte[,] layer)
             {
+                // Read the list of rows present in the file
+                uint presentRowsLen = Bitwise.GetRequiredBytes(rowCount);
+                var presentRows = reader.ReadBytes((int)presentRowsLen);
+                byte presentRowsBitIndex = 0;
+                i = 0;
+
+                // Read each row
                 for (i2 = 0; i2 < rowCount; ++i2)
                 {
-                    for (i3 = 0; i3 < columnCount; ++i3)
+                    // Read each column if the row it belongs to is present in the file
+                    if ((presentRows[i] & (0x80 >> presentRowsBitIndex)) != 0)
                     {
-                        layer[i2, i3] = reader.ReadByte();
+                        columnCount = reader.ReadUInt32();
+                        for (i3 = 0; i3 < columnCount; ++i3)
+                        {
+                            layer[i2, i3] = reader.ReadByte();
+                        }
+                    }
+
+                    if (++presentRowsBitIndex > 7)
+                    {
+                        presentRowsBitIndex = 0;
+                        ++i;
                     }
                 }
             }
@@ -205,13 +223,51 @@ namespace SonicSharp
             // Sub-Methods
             void WriteLayer(byte[,] layer)
             {
+                // We're going to write a byte array called presentRows, with each bit
+                // representing whether the corresponding layer is present in the file.
+                long pos = fs.Position;
+                byte presentRowsBitIndex = 0;
+                i = 0;
+
+                uint presentRowsLen = Bitwise.GetRequiredBytes(RowCount);
+                var presentRows = new byte[presentRowsLen];
+                writer.Write(presentRows);
+
                 for (i2 = 0; i2 < RowCount; ++i2)
                 {
+                    // Do a very basic cutoff check to avoid writing tons of nulls
+                    uint columnCount = 0;
                     for (i3 = 0; i3 < ColumnCount; ++i3)
                     {
-                        writer.Write(layer[i2, i3]);
+                        if (layer[i2, i3] != 0)
+                            columnCount = i3 + 1;
+                    }
+
+                    if (columnCount != 0)
+                    {
+                        // Set the appropriate bit stating this row is present
+                        presentRows[i] |= (byte)(0x80 >> presentRowsBitIndex);
+
+                        // Write the block indices that make up the column
+                        writer.Write(columnCount);
+                        for (i3 = 0; i3 < columnCount; ++i3)
+                        {
+                            writer.Write(layer[i2, i3]);
+                        }
+                    }
+
+                    if (++presentRowsBitIndex > 7)
+                    {
+                        presentRowsBitIndex = 0;
+                        ++i;
                     }
                 }
+
+                // Write presentRows
+                long pos2 = fs.Position;
+                fs.Position = pos;
+                writer.Write(presentRows);
+                fs.Position = pos2;
             }
         }
 

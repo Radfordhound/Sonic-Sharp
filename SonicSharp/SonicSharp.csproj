@@ -45,6 +45,7 @@
     <StartupObject>SonicSharp.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Bitwise.cs" />
     <Compile Include="Block.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameWindow.cs" />
