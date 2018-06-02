@@ -139,7 +139,7 @@ namespace SonicSharp
                 for (int i = -10; i <= 10; ++i)
                 {
                     posX = ((int)Position.X + i);
-                    if (posX <= -Tile.TileSize || posX >
+                    if (posX <= -Tile.TileSize || posX >=
                         GameWindow.CurrentStage.ColumnCount * Block.BlockSize)
                     {
                         continue;
@@ -263,7 +263,7 @@ namespace SonicSharp
             float? VerticalCollisionCheck(int xoffset, out byte angle, out int xpos)
             {
                 posX = ((int)Position.X + xoffset);
-                if (posX < 0 || posX > GameWindow.CurrentStage.ColumnCount * Block.BlockSize)
+                if (posX < 0 || posX >= GameWindow.CurrentStage.ColumnCount * Block.BlockSize)
                 {
                     angle = 0;
                     xpos = 0;
@@ -277,7 +277,7 @@ namespace SonicSharp
                 for (int i = 0; i <= 20; ++i)
                 {
                     posY = ((int)Position.Y + i);
-                    if (posY <= -Tile.TileSize || posY >
+                    if (posY <= -Tile.TileSize || posY >=
                         GameWindow.CurrentStage.RowCount * Block.BlockSize)
                     {
                         continue;
