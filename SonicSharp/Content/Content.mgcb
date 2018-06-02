@@ -145,3 +145,6 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Players/Sonic/balancing2.png
 
+#begin Stages/TestZone/TestZone.sharp-stage
+/copy:Stages/TestZone/TestZone.sharp-stage
+

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 
 namespace SonicSharp
 {
@@ -11,7 +12,7 @@ namespace SonicSharp
     public struct Tile
     {
         // Variables/Constants
-        public Rectangle MapRectangle;
+        public Rectangle MapRectangle { get; private set; }
 
         /*
          * Height/Width Maps work like this:
@@ -200,6 +201,39 @@ namespace SonicSharp
             Angle = angle;
             H1 = h1; H2 = h2; H3 = h3; H4 = h4; H5 = h5;
             W1 = w1; W2 = w2; W3 = w3; W4 = w4; W5 = w5;
+        }
+
+        public Tile(int mapIndex, Texture2D tileMap, BinaryReader reader)
+        {
+            mapIndex *= (int)TileSize;
+            if (mapIndex >= tileMap.Width)
+            {
+                int h = (mapIndex / tileMap.Width);
+                mapIndex -= tileMap.Width * h;
+
+                MapRectangle = new Rectangle(mapIndex, h * (int)TileSize,
+                    (int)TileSize, (int)TileSize);
+            }
+            else
+            {
+                MapRectangle = new Rectangle(mapIndex, 0,
+                    (int)TileSize, (int)TileSize);
+            }
+
+            // Read the height/width map and angle
+            H1 = reader.ReadUInt16();
+            H2 = reader.ReadUInt16();
+            H3 = reader.ReadUInt16();
+            H4 = reader.ReadUInt16();
+            H5 = reader.ReadUInt16();
+
+            W1 = reader.ReadUInt16();
+            W2 = reader.ReadUInt16();
+            W3 = reader.ReadUInt16();
+            W4 = reader.ReadUInt16();
+            W5 = reader.ReadUInt16();
+
+            Angle = reader.ReadByte();
         }
 
         // Methods
@@ -429,6 +463,23 @@ namespace SonicSharp
                 default:
                     throw new ArgumentOutOfRangeException("index");
             }
+        }
+
+        public void Write(BinaryWriter writer)
+        {
+            writer.Write(H1);
+            writer.Write(H2);
+            writer.Write(H3);
+            writer.Write(H4);
+            writer.Write(H5);
+
+            writer.Write(W1);
+            writer.Write(W2);
+            writer.Write(W3);
+            writer.Write(W4);
+            writer.Write(W5);
+
+            writer.Write(Angle);
         }
     }
 }
